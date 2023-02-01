@@ -1,0 +1,22 @@
+.wrapperForm {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapperMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  height: auto;
+  width: 93%;
+
+}
+
+.description {
+  display: flex;
+  text-align: justify;
+}
