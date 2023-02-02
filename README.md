@@ -71,3 +71,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 create .env file  and add REACT_APP_OPENAI_API_KEY, You could get https://openai.com/api/
+
+node v-18.12.1
