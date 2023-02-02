@@ -13,11 +13,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <ChatGpt/>,
+      element: <OpenAi/>,      
     },
     {
       path: "/bucket.io",
-      element: <OpenAi/>,
+      element: <ChatGpt/>,
     },
   ]);
 

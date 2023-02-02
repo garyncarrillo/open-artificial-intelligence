@@ -1,9 +1,10 @@
 import { Configuration, OpenAIApi } from "openai";
+import { keys } from '../../config/apiCredentials'
 
-console.log(process.env.REACT_APP_OPENAI_API_KEY)
+console.log(keys.REACT_APP_OPENAI_API_KEY)
 
 const configuration = new Configuration({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  apiKey: keys.REACT_APP_OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
@@ -53,9 +54,13 @@ export const chatOpenAI = async(params) => {
 
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",
+      model: "text-davinci-002",
       prompt: generatePromptwitQuestion(question),
-      temperature: 0.6,
+      temperature: 0,
+      max_tokens: 100,
+      top_p: 1.0,
+      frequency_penalty: 0.2,
+      presence_penalty: 0.0,
     });
     console.log('************************************');
     console.log(completion.data);
