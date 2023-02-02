@@ -23,7 +23,7 @@ export const createOpenAI = async(params) => {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generatePrompt2(description),
+      prompt: generatePrompt(description),
       temperature: 0.6,
     });
     console.log('************************************');
