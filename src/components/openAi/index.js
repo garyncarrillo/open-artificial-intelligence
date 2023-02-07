@@ -49,6 +49,14 @@ const wrapper = () => css`
       width: 90%;
     }
   }
+
+  .title {
+    margin: 0px;
+  }
+
+  .subTitle {
+    margin-top: 0px;
+  }
   
   @media(max-width: 650px) {
     width: 100%;
@@ -95,23 +103,23 @@ const OpenAi = () => {
   const lists = [
     {
       id: 0,
-      description: 'Top 10 most frequently asked questions in the topic '
+      description: 'Top 5 most frequently asked questions in a topic '
     },
     {
       id: 0,
-      description: 'Generate a promotional text of the product'
+      description: 'Generate a promotional text of a product '
     },
     {
       id: 1,
-      description: 'Generate a text with the qualities of the product'
+      description: 'Generate a text with the qualities of a product '
     },
     {
       id: 2,
-      description: 'Generate a testimonial about the use of the product'
+      description: 'Generate a testimonial about the use of a product '
     },
     {
       id: 3,
-      description: 'Generate product names referring to'
+      description: 'Generate product names for a product '
     }
   ];
 
@@ -134,7 +142,8 @@ const OpenAi = () => {
       >
       <Paper elevation={3}>
         <div className='wrapperMain' css={wrapper}>
-          <h1>Chat with me</h1>
+          <h2 className="title" >Hi! I'm Laura :-)</h2>
+          <h3 className="subTitle">I'm learning to answer your questions. Give me a try ...</h3>
           <Box className="box">
             <FormControl fullWidth>
               <InputLabel >Questions</InputLabel>
