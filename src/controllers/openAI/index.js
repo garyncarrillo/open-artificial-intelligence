@@ -88,8 +88,8 @@ const generatePrompt = (description) => {
   }
 
   const generatePromptwitQuestion = (question) => {
-    const capitalizedDescription =
-    question[0].toUpperCase() + question.slice(1).toLowerCase();
+    // const capitalizedDescription =
+    // question[0].toUpperCase() + question.slice(1).toLowerCase();
     return `${question}`;
   }
   

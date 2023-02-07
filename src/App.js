@@ -1,9 +1,7 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import OpenAi from './components/openAi';
 import ChatGpt from './components/chatGpt';
-
-import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,

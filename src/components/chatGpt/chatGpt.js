@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react'
+import { css } from '@emotion/react'
 import { useState } from 'react';
 import '../../App.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Paper from '@mui/material/Paper';
 
 //controller or integrations
-import { createOpenAI, chatOpenAI, engineList } from '../../controllers/openAI';
+import {  chatOpenAI } from '../../controllers/openAI';
 
 const style = (width) => css`
   .MuiInputBase-input{
@@ -23,7 +22,6 @@ const style = (width) => css`
 
 function ChatGpt() {
   const [answer, setAnswer] = useState("");
-  const [textSend, setTextSend] = useState("Send");
   const [question, setQuestion] = useState("")
   
   const handlerSend = async() => {
@@ -70,7 +68,7 @@ function ChatGpt() {
                variant="contained"
               onClick={handlerSend}
             >
-              {textSend}
+              Send
             </Button>
           </div>
         </div>

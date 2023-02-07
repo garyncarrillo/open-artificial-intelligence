@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react'
+import { css } from '@emotion/react'
 import { useState } from 'react';
 import '../../App.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Paper from '@mui/material/Paper';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { CircularProgress } from '@mui/material';
 
 //controller or integrations
-import { createOpenAI, chatOpenAI, engineList } from '../../controllers/openAI';
+import {  chatOpenAI } from '../../controllers/openAI';
 
 const style = (width="300px", height="32px") => css`
   .MuiInputBase-input{
@@ -89,7 +88,6 @@ const container = css `
 
 const OpenAi = () => {
   const [answer, setAnswer] = useState("");
-  const [textSend, setTextSend] = useState("Send");
   const [question, setQuestion] = useState("")
   const [questionSelected, setQuestionSelected] = useState("");
   const [loading, setLoading] = useState(false);
@@ -169,7 +167,7 @@ const OpenAi = () => {
               disabled={loading}
             >
                 
-              { loading ? <CircularProgress size={24} />: textSend }
+              { loading ? <CircularProgress size={24} />: "Send" }
             </Button>
           
           <TextField
@@ -184,7 +182,7 @@ const OpenAi = () => {
       </Paper>
     </Box>
     <span css={footer}>
-      <a className="text" href="https://bucket.io" target="_blank">
+      <a className="text" href="https://bucket.io" target="_blank" rel="noreferrer">
         Powered By <img src="https://preview.qa.bucketdevelopment.com/static/media/footer-icon-bucket.d09f50c4.svg" alt="logo-footer"/>
         <b>Bucket.io</b>
       </a>
