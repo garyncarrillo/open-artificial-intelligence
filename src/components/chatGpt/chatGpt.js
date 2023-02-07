@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 
 //controller or integrations
-import {  chatOpenAI } from '../../controllers/openAI';
+import {  chatOpenAI } from '../../controllers/openAI'
 
 const style = (width) => css`
   .MuiInputBase-input{
