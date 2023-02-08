@@ -27,16 +27,44 @@ const OpenAi = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     temperature: 0,
-    maxLength: 150,
+    maxLength: 100,
+    max_tokens: 100,
     topP: 1,
-    frecuencyPenalty: 1,
-    presencePenalty: 1,
+    frecuencyPenalty: 0.2,
+    presencePenalty: 0,
     bestOf: 1,
-    optionSelected: '',
+    optionSelected: 'text-davinci-003',
     role: '',
-    task: ''
+    task: '',
+    context: '',
+    voiceSelected: 'Casual',
+    audiencesSelected: 'Neutral'
   });
   const [engineOptions, setEngineOption] = useState([])
+  const [totalToken, setTotalToken] = useState(500)
+  const voiceOptions = [
+    {id: 'Funny', label: 'Funny'},
+    {id: 'Professional', label: 'Professional'},
+    {id: 'Expert', label: 'Expert'},
+    {id: 'Witty', label: 'Witty'},
+    {id: 'Casual', label: 'Casual'}
+  ];
+
+  const modelList = [
+    {id: 'text-davinci-003', label: 'Davinci'},
+    {id: 'curie', label: 'Curie'},
+    {id: 'babbage', label: 'Babbage'},
+    {id: 'ada', label: 'Ada'}
+  ];
+
+  const audiences = [
+    {id: 'Neutral', label: 'Neutral'},
+    {id: 'Uninformed', label: 'Uninformed'},
+    {id: 'Expert', label: 'Expert'},
+    {id: 'Hostile', label: 'Hostile'},
+    {id: 'Business', label: 'Business'},
+    {id: 'Friendly', label: 'Friendly'},
+  ];
 
   const handleChangeData = (key, value) => {
     setData({...data, [key]: value})
@@ -80,11 +108,22 @@ const OpenAi = () => {
   ];
 
   const handlerSend = async() => {
+    if (totalToken <= 0) {
+      alert("You don't have enough tokens")
+    }
     var newQuestion = `${questionSelected} ${question}`;
     setLoading(true);
-    const response = await chatOpenAI({question: newQuestion})
+    const {response, total_tokens} = await chatOpenAI(data)
     setLoading(false);
     console.log(response)
+
+    if(total_tokens) {
+      var total = totalToken - total_tokens;
+      if (total < 0) {
+        total = 0
+      }
+      setTotalToken(total);
+    }
     setAnswer(response);
   }
 
@@ -183,7 +222,7 @@ const OpenAi = () => {
           />
         </div>
       </Box>
-    <Sidebar data={data} handleChangeData={handleChangeData} engineOptions={engineOptions}/>
+    <Sidebar totalToken={totalToken} data={data} handleChangeData={handleChangeData} engineOptions={engineOptions} voiceOptions={voiceOptions} modelList={modelList} audiences={audiences}/>
     </div>
       </Paper>
     <span css={styles.footer}>

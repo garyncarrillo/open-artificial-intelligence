@@ -46,25 +46,27 @@ export const chatOpenAI = async(params) => {
       return;
   }
 
-  const question = params.question || '';
-  if (question.trim().length === 0) {
+  if (!params) {
       alert("Please enter a valid description")
       return;
   }
 
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-002",
-      prompt: generatePromptwitQuestion(question),
-      temperature: 0,
-      max_tokens: 100,
-      top_p: 1.0,
-      frequency_penalty: 0.2,
-      presence_penalty: 0.0,
+      model: params.optionSelected, //"text-davinci-002"
+      prompt: generatePromptwitQuestion(params),
+      temperature: params.temperature,
+      max_tokens: params.maxLength,
+      top_p: params.topP,
+      frequency_penalty: params.frecuencyPenalty,
+      presence_penalty: params.presencePenalty,
     });
     console.log('************************************');
     console.log(completion.data);
-    return completion.data.choices[0].text;
+    return {
+      response: completion.data.choices[0].text,
+      total_tokens: completion.data.usage.total_tokens
+    };
   } catch(error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
@@ -87,9 +89,23 @@ const generatePrompt = (description) => {
   Names:`;
   }
 
-  const generatePromptwitQuestion = (question) => {
-    // const capitalizedDescription =
-    // question[0].toUpperCase() + question.slice(1).toLowerCase();
+  const textHasPoint = (text) => {
+    
+    if (text.trim().length === 0) {
+      return true;
+    }
+    
+    if (text.substr(text.length - 1, 1) == '.') {
+      return true;
+    }
+
+    return false;
+  }
+
+  const generatePromptwitQuestion = (params) => {
+    var question = `${textHasPoint(params.role) ? params.role : params.role+"."} ${textHasPoint(params.task) ? params.task : params.task+"." } ${params.context ? "Context:" : "" } ${textHasPoint(params.context) ? params.context : params.context+"." } with voice ${params.voiceSelected} for ${params.audiencesSelected} audience`
+    console.log("**********************")
+    console.log(question)
     return `${question}`;
   }
   
