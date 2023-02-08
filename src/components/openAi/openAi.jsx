@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../App.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,7 +13,7 @@ import Select from '@mui/material/Select';
 import { CircularProgress } from '@mui/material';
 
 //controller or integrations
-import {  chatOpenAI } from '../../controllers/openAI';
+import {  chatOpenAI, engineList } from '../../controllers/openAI';
 import { Sidebar } from '../Sidebar';
 
 import * as styles from './openAi.styles'
@@ -24,6 +24,34 @@ const OpenAi = () => {
   const [question, setQuestion] = useState("")
   const [questionSelected, setQuestionSelected] = useState("");
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    temperature: 0,
+    maxLength: 150,
+    topP: 1,
+    frecuencyPenalty: 1,
+    presencePenalty: 1,
+    bestOf: 1,
+    optionSelected: ''
+  });
+  const [engineOptions, setEngineOption] = useState([])
+
+  const handleChangeData = (key, value) => {
+    setData({...data, [key]: value})
+  }
+
+  const fetchModels = async() => {
+    const response = await engineList();
+    var array  = []
+
+    response.data.data.forEach((element) => {
+      array.push({id: element.id, label: element.id})
+    });
+    setEngineOption(array)
+  }
+
+  useEffect(() =>{
+    fetchModels();
+  },[]);
 
   const lists = [
     {
@@ -115,7 +143,7 @@ const OpenAi = () => {
           />
         </div>
       </Box>
-    <Sidebar/>
+    <Sidebar data={data} handleChangeData={handleChangeData} engineOptions={engineOptions}/>
     </div>
       </Paper>
     <span css={styles.footer}>
