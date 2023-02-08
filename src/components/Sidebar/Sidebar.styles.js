@@ -11,4 +11,7 @@ align-items: center;
 .MuiAutocomplete-root {
     margin-bottom: 30px;
 }
+@media(max-width: 600px){
+    width: 100%;
+}
 `

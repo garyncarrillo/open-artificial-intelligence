@@ -5,16 +5,12 @@ export const inputs = (width="300px", height="32px") => css`
     width: ${width};
     height: ${height} !important;
   }
-
-  .MuiInputBase-root {
-    margin-bottom: 40px;
-  }
 `
 
 export const wrapper = () => css`
   padding: 30px;
   box-sizing: border-box;
-  width: 650px;
+  ${'' /* width: 650px; */}
 
   .sendButton{
     margin-bottom: 20px;
@@ -67,7 +63,7 @@ a.text {
   text-decoration: none;
 }
 
-@media(max-height: 600px) {
+@media(max-height: 900px) {
   position: relative;
   margin-top: 30px;
 }
@@ -77,4 +73,12 @@ export const container = css `
   .box{
       display: flex;
   }
+  @media(max-width:600px){
+    flex-direction: column-reverse;
+  }
+`
+
+export const dynamicInput = css`
+  width: 100%;
+  margin-bottom: 15px;
 `

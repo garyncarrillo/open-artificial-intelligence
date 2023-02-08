@@ -3,9 +3,13 @@ import { useEffect } from "react";
 import { SuperPlaceholder } from "./SuperPlaceholder";
 
 const InputWithDynamicPlaceholder = ({
-    id="dynamic-placeholder",
+    elementId="dynamic-placeholder",
     placeholders=["john.doe@gmail.com", "foo@bar.com"], 
-    label="label", handleChangeData
+    label="label", 
+    property='',
+    value='',
+    handleChangeData,
+    ...rest
 }) => {
     useEffect(()=>{
         const  sp = new SuperPlaceholder({
@@ -13,13 +17,13 @@ const InputWithDynamicPlaceholder = ({
             preText: "Eg. ",
             stay: 1000,
             speed: 100,
-            element: '#'+id
+            element: '#'+elementId
             });
             sp.init();
     }, [])
     
     return (
-        <TextField label={label} type="text" id={id} onChange={handleChangeData} />
+        <TextField {...rest} label={label} type="text" id={elementId} value={value} onChange={({target})=>handleChangeData(property, target.value)} />
     );
 }
 

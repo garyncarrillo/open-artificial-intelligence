@@ -17,6 +17,7 @@ import {  chatOpenAI, engineList } from '../../controllers/openAI';
 import { Sidebar } from '../Sidebar';
 
 import * as styles from './openAi.styles'
+import InputWithDynamicPlaceholder from '../InputWithDynamicPlaceholder/InputWithDynamicPlaceholder';
 
 
 const OpenAi = () => {
@@ -31,7 +32,9 @@ const OpenAi = () => {
     frecuencyPenalty: 1,
     presencePenalty: 1,
     bestOf: 1,
-    optionSelected: ''
+    optionSelected: '',
+    role: '',
+    task: ''
   });
   const [engineOptions, setEngineOption] = useState([])
 
@@ -98,7 +101,7 @@ const OpenAi = () => {
         <div className='wrapperMain' css={styles.wrapper}>
           <h2 className="title" >Hi! I'm Laura :-)</h2>
           <h3 className="subTitle">I'm learning to answer your questions. Give me a try ...</h3>
-          <Box className="box">
+          {/* <Box className="box">
             <FormControl fullWidth>
               <InputLabel >Questions</InputLabel>
               <Select
@@ -115,13 +118,50 @@ const OpenAi = () => {
                 }
               </Select>
             </FormControl>
-          </Box>
-          <TextField
+          </Box> */}
+
+
+          <InputWithDynamicPlaceholder 
+            placeholders={["You are a high school teacher", "You are an astronaut", "You are a business consultant"]} 
+            label="Set the Role" 
+            elementId='role-input'
+            property='role'
+            value={data.role}
+            handleChangeData={handleChangeData}
+            css={styles.dynamicInput}
+             /> 
+
+          <InputWithDynamicPlaceholder 
+            placeholders={["Draft out 10 lesson ideas to make Grade 10 math interesting and entertaining for your students"]} 
+            label="Set the Task" 
+            elementId='task-input'
+            property='task'
+            value={data.task}
+            handleChangeData={handleChangeData}
+            css={styles.dynamicInput}
+            multiline
+            rows={3}
+             /> 
+
+          <InputWithDynamicPlaceholder 
+            placeholders={["You need to focus on meeting the Mathematical Learning Standards for Grade 10 Math as outlined by the New York State Education Department. How would you amend the above list to be more in line with those standards"]} 
+            label="Provide Context & Clarity" 
+            elementId='context-input'
+            property='context'
+            value={data.context}
+            handleChangeData={handleChangeData}
+            css={styles.dynamicInput}
+            multiline
+            rows={3}
+             /> 
+
+
+          {/* <TextField
             label="Topic/product"
             variant="outlined"
             onChange={(event) => setQuestion(event.target.value)}
             css={styles.inputs("250px", "")}
-          />
+          /> */}
            
             <Button
               className="sendButton"
