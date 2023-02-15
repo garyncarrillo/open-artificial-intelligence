@@ -26,7 +26,7 @@ const OpenAi = () => {
   const [questionSelected, setQuestionSelected] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    temperature: 0,
+    temperature: 0.5,
     maxLength: 100,
     max_tokens: 100,
     topP: 1,
@@ -51,10 +51,12 @@ const OpenAi = () => {
   ];
 
   const modelList = [
-    {id: 'text-davinci-003', label: 'Davinci'},
-    {id: 'curie', label: 'Curie'},
-    {id: 'babbage', label: 'Babbage'},
-    {id: 'ada', label: 'Ada'}
+    {id: 'text-davinci-003', label: 'Davinci 003'},
+    {id: 'text-curie-001', label: 'Curie 001'},
+    {id: 'text-babbage-001', label: 'Babbage 001'},
+    {id: 'text-ada-001', label: 'Ada 001'},
+    {id: 'code-davinci-002', label: 'Code Davinci 002'},
+    {id: 'code-cushman-001', label: 'Code Cushman 001'}
   ];
 
   const audiences = [
@@ -70,6 +72,8 @@ const OpenAi = () => {
     setData({...data, [key]: value})
   }
 
+  console.log(data);
+  
   const fetchModels = async() => {
     const response = await engineList();
     var array  = []
@@ -77,6 +81,7 @@ const OpenAi = () => {
     response.data.data.forEach((element) => {
       array.push({id: element.id, label: element.id})
     });
+    console.log(array)
     setEngineOption(array)
   }
 
@@ -139,7 +144,7 @@ const OpenAi = () => {
       >
         <div className='wrapperMain' css={styles.wrapper}>
           <h2 className="title" >Hi! I'm Laura :-)</h2>
-          <h3 className="subTitle">I'm learning to answer your questions. Give me a try ...</h3>
+          <h3 className="subTitle">This week I'm learning to be helpful with more general tasks. Give me a try ...</h3>
           {/* <Box className="box">
             <FormControl fullWidth>
               <InputLabel >Questions</InputLabel>

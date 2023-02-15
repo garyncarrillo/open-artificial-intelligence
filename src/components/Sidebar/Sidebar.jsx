@@ -3,22 +3,30 @@ import React from 'react'
 import SliderRange from '../shared/sliderRange';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import DropDown from '../shared/DropDown';
 
 import * as styles from './Sidebar.styles'
 
 export const Sidebar = ({ data, handleChangeData, engineOptions, totalToken, voiceOptions, modelList, audiences}) => {
     return (
         <div css={styles.container}>
-            <Autocomplete
-                disablePortal
-                id="combo-box-demo"
+            <DropDown
+                label={'Model'}
+                options={modelList}
+                handleChangeData={handleChangeData}
+                nameField={'optionSelected'}
+            />
+            <DropDown
+                label={'Audience'}
                 options={audiences}
-                sx={{ width: 200, height: 32}}
-                renderInput={(params) => <TextField {...params} label="Audiences" />}
-                onChange={(event, value) => handleChangeData('audiencesSelected', value.id)}
-                value={data.audiencesSelected}
-                required
-
+                handleChangeData={handleChangeData}
+                nameField={'audiencesSelected'}
+            />
+            <DropDown
+                label={'Voice'}
+                options={voiceOptions}
+                handleChangeData={handleChangeData}
+                nameField={'voiceSelected'}
             />
             {/* <Autocomplete
                 disablePortal
@@ -27,9 +35,21 @@ export const Sidebar = ({ data, handleChangeData, engineOptions, totalToken, voi
                 sx={{ width: 200, height: 32 }}
                 renderInput={(params) => <TextField {...params} label="Model" />}
                 onChange={(event, value) => handleChangeData('optionSelected', value.id)}
+                value={data.optionSelected}
                 required
             /> */}
-            <Autocomplete
+            {/* <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={audiences}
+                sx={{ width: 200, height: 32}}
+                renderInput={(params) => <TextField {...params} label="Audience" />}
+                onChange={(event, value) => handleChangeData('audiencesSelected', value.id)}
+                value={data.audiencesSelected}
+                required
+
+            /> */}
+            {/* <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 options={voiceOptions}
@@ -38,12 +58,12 @@ export const Sidebar = ({ data, handleChangeData, engineOptions, totalToken, voi
                 onChange={(event, value) => handleChangeData('voiceSelected', value.id)}
                 value={data.voiceSelected}
                 required
-            />
-            {/* <SliderRange
+            /> */}
+            <SliderRange
                 property="Temperature"
                 value={data.temperature}
                 onChange={(event)=>handleChangeData('temperature', event.target.value)}
-            /> */}
+            />
             {/* <SliderRange
                 property="Maximum length"
                 value={data.maxLength}

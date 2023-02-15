@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import OpenAi from './components/openAi';
 import ChatGpt from './components/chatGpt';
+import Training from  './components/training';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,6 +19,11 @@ function App() {
       path: "/bucket.io",
       element: <ChatGpt/>,
     },
+    {
+      path: "/training",
+      element: <Training/>,
+    },
+
   ]);
 
   return (
