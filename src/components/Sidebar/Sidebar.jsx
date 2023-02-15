@@ -4,10 +4,23 @@ import SliderRange from '../shared/sliderRange';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import DropDown from '../shared/DropDown';
+import { CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
 
 import * as styles from './Sidebar.styles'
+import * as styles2 from '../openAi/openAi.styles'
 
-export const Sidebar = ({ data, handleChangeData, engineOptions, totalToken, voiceOptions, modelList, audiences}) => {
+export const Sidebar = ({
+            data,
+            handleChangeData,
+            engineOptions,
+            totalToken, voiceOptions,
+            modelList,
+            audiences,
+            handlerSend,
+            loading,
+            answer
+        }) => {
     return (
         <div css={styles.container}>
             <DropDown
@@ -101,6 +114,27 @@ export const Sidebar = ({ data, handleChangeData, engineOptions, totalToken, voi
                 max={2}
             /> */}
             <p>Tokens available: {totalToken}</p>
+            
+            <div className='containerMobile'>
+                <Button
+                    className="sendButton showOnMobile"
+                    variant="contained"
+                    onClick={handlerSend}
+                    disabled={loading}
+                >
+                    
+                    { loading ? <CircularProgress size={24} />: "Send" }
+                </Button>
+                    
+                <TextField
+                    className="textArea showOnMobile"
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={4}
+                    defaultValue={answer}
+                    css={styles2.inputs("100%", "250px")}
+                />
+            </div>     
         </div>
     );
 }

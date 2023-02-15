@@ -74,7 +74,21 @@ export const container = css `
       display: flex;
   }
   @media(max-width:600px){
-    flex-direction: column-reverse;
+    flex-direction: column;
+    
+    .hideOnMobile{
+      display: none;
+    }
+
+    .showOnMobile{
+      display: inherit;
+      padding: 20px;
+      box-sizing: border-box;
+      
+      &.MuiFormControl-root {
+        width: 100%;
+      }
+    }
   }
 `
 

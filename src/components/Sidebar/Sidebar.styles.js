@@ -15,4 +15,21 @@ align-items: center;
 @media(max-width: 600px){
     width: 100%;
 }
+
+.containerMobile {
+    display: none;
+    width: 100%;
+    
+    .sendButton{
+        margin-bottom: 20px;
+        width: 80px;
+        height: 40px;
+    }
+
+    @media(max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 `

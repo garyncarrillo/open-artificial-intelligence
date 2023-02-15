@@ -208,7 +208,7 @@ const OpenAi = () => {
           /> */}
            
             <Button
-              className="sendButton"
+              className="sendButton hideOnMobile"
               variant="contained"
               onClick={handlerSend}
               disabled={loading}
@@ -218,7 +218,7 @@ const OpenAi = () => {
             </Button>
           
           <TextField
-            className="textArea"
+            className="textArea hideOnMobile"
             id="outlined-multiline-static"
             multiline
             rows={4}
@@ -227,15 +227,25 @@ const OpenAi = () => {
           />
         </div>
       </Box>
-    <Sidebar totalToken={totalToken} data={data} handleChangeData={handleChangeData} engineOptions={engineOptions} voiceOptions={voiceOptions} modelList={modelList} audiences={audiences}/>
+    <Sidebar
+      totalToken={totalToken}
+      data={data} handleChangeData={handleChangeData}
+      engineOptions={engineOptions}
+      voiceOptions={voiceOptions}
+      modelList={modelList}
+      audiences={audiences}
+      handlerSend={handlerSend}
+      loading={loading}
+      answer={answer}
+    />
     </div>
       </Paper>
-    <span css={styles.footer}>
-      <a className="text" href="https://bucket.io" target="_blank" rel="noreferrer">
-        Powered By <img src="https://preview.qa.bucketdevelopment.com/static/media/footer-icon-bucket.d09f50c4.svg" alt="logo-footer"/>
-        <b>Bucket.io</b>
-      </a>
-    </span>
+      <span css={styles.footer}>
+        <a className="text" href="https://bucket.io" target="_blank" rel="noreferrer">
+          Powered By <img src="https://preview.qa.bucketdevelopment.com/static/media/footer-icon-bucket.d09f50c4.svg" alt="logo-footer"/>
+          <b>Bucket.io</b>
+        </a>
+      </span>
     </div>
   );
 }
