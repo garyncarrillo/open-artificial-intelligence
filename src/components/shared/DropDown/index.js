@@ -9,8 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 const DropDown = ({label, value, handleChangeData, options=[], nameField}) => {
 
   return (
-    <Box sx={{ minWidth: 200, marginBottom: '20px' }}>
-      <FormControl fullWidth>
+      <FormControl variant="standard">
         <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -26,7 +25,6 @@ const DropDown = ({label, value, handleChangeData, options=[], nameField}) => {
             }
         </Select>
       </FormControl>
-    </Box>
   );
 }
 

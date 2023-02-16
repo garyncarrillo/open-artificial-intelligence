@@ -1,29 +1,16 @@
-import {css} from '@emotion/react'
+import { css } from "@emotion/react";
 
-export const inputs = (width="300px", height="32px") => css`
-  .MuiInputBase-input{
+export const inputs = (width = "300px", height = "32px") => css`
+  .MuiInputBase-input {
     width: ${width};
     height: ${height} !important;
   }
-`
+`;
 
 export const wrapper = () => css`
-  padding: 30px;
-  box-sizing: border-box;
-  ${'' /* width: 650px; */}
-
-  .sendButton{
-    margin-bottom: 20px;
-    width: 80px;
-    height: 40px;
-  }
-
-  .box{
-    min-width: 120m;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   .textArea {
     &.MuiFormControl-root {
       width: 90%;
@@ -37,62 +24,64 @@ export const wrapper = () => css`
   .subTitle {
     margin-top: 0px;
   }
-  
-  @media(max-width: 650px) {
-    width: 100%;
-    padding: 20px;
-  }
-`
-export const footer = css `
-height: 38px;
-background-color: #F2F2F2;
-border-top: none;
-display: flex;
-justify-content: center;
-align-items: center;
-position: absolute;
-bottom: 0;
-width: 100%;
+`;
 
-a.text {
+export const container = css`
   display: flex;
-  align-items: center;
-  gap: 3.75px;
-  color: #8a8a8a;
-  font-size: 10px;
-  text-decoration: none;
-}
+  max-width: 984px;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0px 17px 38px rgba(0, 0, 0, 0.14),
+    0px 3.79717px 8.4878px rgba(0, 0, 0, 0.083455),
+    0px 1.13052px 2.52704px rgba(0, 0, 0, 0.056545);
+  border-radius: 16px;
+  gap: 30px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 32px;
 
-@media(max-height: 900px) {
-  position: relative;
-  margin-top: 30px;
-}
-`
-export const container = css `
-  display: flex;
-  .box{
-      display: flex;
+  &.container-response{
+    .MuiFormControl-root{
+      width: 100%;
+    }
+    .result-label{
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      color: #1A1A1A;
+      margin-bottom: 5px;
+    }
   }
-  @media(max-width:600px){
+ 
+  @media (max-width: 600px) {
     flex-direction: column;
-    
-    .hideOnMobile{
+    &.container-request, &.container-response{
+      width: 95%;
+    }
+    .hideOnMobile {
       display: none;
     }
 
-    .showOnMobile{
+    .showOnMobile {
       display: inherit;
-      padding: 20px;
       box-sizing: border-box;
-      
-      &.MuiFormControl-root {
-        width: 100%;
-      }
     }
   }
-`
+`;
 
 export const dynamicInput = css`
   width: 100%;
   margin-bottom: 15px;
+`;
+
+
+export const body = css`
+  background: #E7F1DA;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 `
