@@ -69,6 +69,11 @@ export const container = css`
       box-sizing: border-box;
     }
   }
+  @media (max-width: 1024px) {
+    &.container-request, &.container-response{
+      width: 95%;
+    }
+  }
 `;
 
 export const dynamicInput = css`

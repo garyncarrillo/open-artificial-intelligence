@@ -64,4 +64,7 @@ export const footer = css`
     position: absolute;
     bottom: 0;
   }
+  @media (max-width: 820px) and (max-height: 1180px) {
+   position: relative;
+  }
 `;
