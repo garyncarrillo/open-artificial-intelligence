@@ -3,6 +3,7 @@ import React from 'react';
 import OpenAi from './components/openAi';
 import ChatGpt from './components/chatGpt';
 import Training from  './components/training';
+import BoldPromise from  './components/boldPromise';
 
 import {
   createBrowserRouter,
@@ -23,7 +24,10 @@ function App() {
       path: "/training",
       element: <Training/>,
     },
-
+    {
+      path: "/bold_promise",
+      element: <BoldPromise/>,
+    },
   ]);
 
   return (

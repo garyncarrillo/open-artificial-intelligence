@@ -191,3 +191,80 @@ const generatePrompt = (description) => {
   answer: I put everyone before myself no matter what. Even if its something to advance myself,I'll stop what im doing to help whoever is asking me for help. I have a very hard time saying no because I feel selfish If I do.
   answer: Determining where to priorize and allocate my time. Torn between full time job, side job I want to be full time job, working towards an MBA`;
   }
+
+
+  export const boldPromiseOpenAI = async(params, typeQuestion) => {
+    if (!configuration.apiKey) {
+        alert("OpenAI API key not configured, please follow instructions in README.md")
+        return;
+    }
+  
+    if (!params) {
+        alert("Please enter a valid description")
+        return;
+    }
+    var prompt = null;
+
+    switch (typeQuestion) {
+      case 1:
+        prompt = generatePromptBoldPromiseBiggestDesire(params)
+        break;
+      case 2:
+        prompt = generatePromptBoldPromiseBiggestPain(params)
+        break;
+      case 3:
+        prompt = generatePromptBoldPromiseBiggestObjection(params)
+        break;
+    }
+
+    
+    try {
+      const completion = await openai.createCompletion({
+        model: params.optionSelected, //"text-davinci-002"
+        prompt: prompt,
+        temperature: params.temperature,
+        max_tokens: params.maxLength,
+        top_p: params.topP,
+        frequency_penalty: params.frecuencyPenalty,
+        presence_penalty: params.presencePenalty,
+      });
+      console.log('************************************');
+      console.log(completion.data);
+      return {
+        response: completion.data.choices[0].text,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    } catch(error) {
+      if (error.response) {
+        console.error(error.response.status, error.response.data);
+      } else {
+        console.error(`Error with OpenAI API request: ${error.message}`);
+      }
+    }
+  }
+  
+  const generatePromptBoldPromiseBiggestDesire = (params) => {
+    // var question = `in one phrase What is biggest desire for woman that want lose weight through an online course with the following human's desires ${params.humanDiseresSelected.join(", ")} ?`;
+    var question = `in one phrase What is biggest desire for ${params.questionWho} that ${params.questionWhat} ${params.questionHow} with the following human's desires ${params.humanDiseresSelected.join(", ")} ?`;
+    console.log("**********************")
+    console.log(question)
+    return `${question}`;
+  }
+
+  const generatePromptBoldPromiseBiggestPain = (params) => {
+    // var question = `in one phrase What is biggest pain for woman that want lose weight through an online course with possible things that doesn't want?`;
+    var question = `in one phrase What is biggest pain for ${params.questionWho} that ${params.questionWhat} ${params.questionHow} with possible things that doesn't want?`;
+    // var question = `in one phrase what specific thing ${params.questionWho} don’t when ${params.questionWhat} ${params.questionHow}?`;
+    //var question = `in one phrase what specific thing ${params.questionWho} don’t when ${params.questionWhat} ${params.questionHow}?`;
+    console.log("**********************")
+    console.log(question)
+    return `${question}`;
+  }
+
+  const generatePromptBoldPromiseBiggestObjection = (params) => {
+    // var question = `in one phrase tell me what limitation has the woman have to want lose weight through an online course?`;
+    var question = `in one phrase tell me what limitation has the ${params.questionWho} have to ${params.questionWhat} ${params.questionHow}?`;
+    console.log("**********************")
+    console.log(question)
+    return `${question}`;
+  }
