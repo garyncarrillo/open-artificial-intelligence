@@ -14,7 +14,7 @@ import { CircularProgress } from "@mui/material";
 
 //controller or integrations
 import { chatOpenAI, engineList } from "../../controllers/openAI";
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "./Sidebar";
 
 import * as styles from "./openAi.styles";
 import InputWithDynamicPlaceholder from "../InputWithDynamicPlaceholder/InputWithDynamicPlaceholder";
@@ -23,7 +23,7 @@ import { Header } from "./Header";
 import Footer from "./Footer/Footer";
 import { Link } from "react-router-dom";
 
-const OpenAi = () => {
+const OpenAiWithBoldPromise = () => {
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
   const [questionSelected, setQuestionSelected] = useState("");
@@ -42,6 +42,7 @@ const OpenAi = () => {
     context: "",
     voiceSelected: "Casual",
     audiencesSelected: "Neutral",
+    humanDesire: []
   });
   const [engineOptions, setEngineOption] = useState([]);
   const [totalToken, setTotalToken] = useState(500);
@@ -141,7 +142,7 @@ const OpenAi = () => {
 
   return (
     <div className="wrapperForm-im-laura" css={styles.body}>
-    <Link to={'/bold-promise'} className='link-goto'>Go to Laura (Bold Promise)</Link>
+    <Link to={'/'} className='link-goto'>Go to Laura</Link>
       <Header />
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>
@@ -224,4 +225,4 @@ const OpenAi = () => {
   );
 };
 
-export default OpenAi;
+export default OpenAiWithBoldPromise;

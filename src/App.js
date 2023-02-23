@@ -3,6 +3,7 @@ import React from 'react';
 import OpenAi from './components/openAi';
 import ChatGpt from './components/chatGpt';
 import Training from  './components/training';
+import OpenAiWithBoldPromise from './components/OpenAiWithBoldPromise';
 
 import {
   createBrowserRouter,
@@ -14,6 +15,10 @@ function App() {
     {
       path: "/",
       element: <OpenAi/>,      
+    },
+    {
+      path: "/bold-promise",
+      element: <OpenAiWithBoldPromise/>,      
     },
     {
       path: "/bucket.io",
