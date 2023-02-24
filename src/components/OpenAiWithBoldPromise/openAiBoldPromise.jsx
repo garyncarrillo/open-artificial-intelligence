@@ -148,11 +148,9 @@ const OpenAiWithBoldPromise = () => {
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>
           <Input
-            placeholders={[
-              "Ideal Client",
-              "Market Niche",
-              "Women aged between 35 and 45",
-            ]}
+            placeholder={
+              "Eg. Women aged between 35 and 45"
+            }
             label="WHO is it for?"
             elementId="who-input"
             property="questionWho"
@@ -162,9 +160,9 @@ const OpenAiWithBoldPromise = () => {
           />
 
           <Input
-            placeholders={[
-              "want lose weight",
-            ]}
+            placeholder={
+              "Eg. Want lose weight"
+            }
             label="WHAT are you delivering?"
             elementId="what-input"
             property="questionWhat"
@@ -176,9 +174,9 @@ const OpenAiWithBoldPromise = () => {
           />
 
           <Input
-            placeholders={[
-              "through an online course"
-            ]}
+            placeholder={
+              "Eg. Through an online course"
+            }
             label="HOW are you delivering it?"
             elementId="how-input"
             property="questionHow"
