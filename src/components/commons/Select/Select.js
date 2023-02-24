@@ -23,8 +23,8 @@ export const Select = ({label, value, handleChangeData, options=[], nameField, .
         >  
             {
                 options.map((element, index) =>
-                    <MenuItem value={element.id}>
-                    {rest.multiple && <CheckBox sx={4} checked={value.includes(element.label)}   />}
+                    <MenuItem value={element.id} key={index}>
+                    {rest.multiple && <CheckBox checked={value.includes(element.label)}   />}
                     <span>{element.label}</span>
                     </MenuItem>
                 )

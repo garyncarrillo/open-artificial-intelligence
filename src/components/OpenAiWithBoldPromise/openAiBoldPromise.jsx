@@ -81,10 +81,11 @@ const OpenAiWithBoldPromise = () => {
   const fetchModels = async () => {
     const response = await engineList();
     var array = [];
-
-    response.data.data.forEach((element) => {
-      array.push({ id: element.id, label: element.id });
-    });
+    if (response) {
+      response.data.data.forEach((element) => {
+        array.push({ id: element.id, label: element.id });
+      });
+    }
     console.log(array);
     setEngineOption(array);
   };

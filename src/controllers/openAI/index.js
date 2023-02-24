@@ -120,6 +120,7 @@ const generatePrompt = (description) => {
       } else {
         console.error(`Error with OpenAI API request: ${error.message}`);
       }
+      return null;
     }
   }
 

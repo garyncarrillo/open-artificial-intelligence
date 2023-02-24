@@ -9,7 +9,9 @@ export const SuperPlaceholder = function(options) {
     this.setPlaceholder = function() {
         placeholder = options.placeholders[this.placeholderIdx];
         var placeholderChunk = placeholder.substring(0, this.charIdx+1);
-        document.querySelector(this.element).setAttribute("placeholder", this.options.preText + " " + placeholderChunk)
+        if(document.querySelector(this.element)) {
+          document.querySelector(this.element).setAttribute("placeholder", this.options.preText + " " + placeholderChunk)
+        }
     };
     
     this.onTickReverse = function(afterReverse) {

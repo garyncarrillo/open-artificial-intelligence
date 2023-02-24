@@ -15,15 +15,22 @@ value='',
 handleChangeData,
 ...rest}) => {
     useEffect(()=>{
+        let sp =  null;
         if(!rest.placeholder){
-            const  sp = new SuperPlaceholder({
+            sp = new SuperPlaceholder({
                 placeholders,
                 preText: "Eg. ",
                 stay: 1000,
                 speed: 100,
                 element: '#'+elementId
-                });
-                sp.init();
+            });
+            sp.init();
+        }
+        return () => {
+            console.log(sp);
+            if(sp) {
+                sp.kill();
+            }
         }
     }, [])
     return (
