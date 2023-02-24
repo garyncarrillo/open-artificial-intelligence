@@ -13,7 +13,7 @@ import Select from "@mui/material/Select";
 import { CircularProgress } from "@mui/material";
 
 //controller or integrations
-import { chatOpenAI, engineList } from "../../controllers/openAI";
+import { chatOpenAI, engineList, chatOpenAiBoldPromise } from "../../controllers/openAI";
 import { Sidebar } from "./Sidebar";
 
 import * as styles from "./openAi.styles";
@@ -37,9 +37,9 @@ const OpenAiWithBoldPromise = () => {
     presencePenalty: 0,
     bestOf: 1,
     optionSelected: "text-davinci-003",
-    role: "",
-    task: "",
-    context: "",
+    questionWho: "",
+    questionWhat: "",
+    questionHow: "",
     voiceSelected: "Casual",
     audiencesSelected: "Neutral",
     humanDesire: []
@@ -117,23 +117,23 @@ const OpenAiWithBoldPromise = () => {
   ];
 
   const handlerSend = async () => {
-    if (totalToken <= 0) {
-      alert("You don't have enough tokens");
-    }
-    var newQuestion = `${questionSelected} ${question}`;
     setLoading(true);
-    const { response, total_tokens } = await chatOpenAI(data);
+    var biggestDesireAnswer = null;
+    var biggestPainAnswer = null;
+    const { response, total_tokens } = await chatOpenAiBoldPromise(data, 1, biggestDesireAnswer, biggestPainAnswer);
     setLoading(false);
-    console.log(response);
+    console.log("ANSWER 1 <<<<=>>>> "+response);
+    biggestDesireAnswer = response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '');
+    
+    const result = await chatOpenAiBoldPromise(data, 2, biggestDesireAnswer, biggestPainAnswer);
+    biggestPainAnswer = result.response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '');
+    console.log("ANSWER 2 <<<<=>>>> "+result.response)
 
-    if (total_tokens) {
-      var total = totalToken - total_tokens;
-      if (total < 0) {
-        total = 0;
-      }
-      setTotalToken(total);
-    }
-    setAnswer(response);
+    const result2 = await chatOpenAiBoldPromise(data, 3, biggestDesireAnswer, biggestPainAnswer);
+    var biggestObjection = result2.response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '')
+    console.log("ANSWER 3 <<<<=>>>> "+biggestObjection);
+
+    setAnswer("How "+biggestDesireAnswer.toLowerCase()+" without "+biggestPainAnswer.toLowerCase()+ " even if you’ve tried and "+biggestObjection.toLowerCase());
   };
 
   const handleChange = (event) => {
@@ -148,26 +148,26 @@ const OpenAiWithBoldPromise = () => {
         <div className="left-side" css={styles.wrapper}>
           <Input
             placeholders={[
-              "You are a high school teacher",
-              "You are an astronaut",
-              "You are a business consultant",
+              "Ideal Client",
+              "Market Niche",
+              "Women aged between 35 and 45",
             ]}
-            label="Set the Role"
-            elementId="role-input"
-            property="role"
-            value={data.role}
+            label="WHO is it for?"
+            elementId="who-input"
+            property="questionWho"
+            value={data.questionWho}
             handleChangeData={handleChangeData}
             css={styles.dynamicInput}
           />
 
           <Input
             placeholders={[
-              "Draft out 10 lesson ideas to make Grade 10 math interesting and entertaining for your students",
+              "want lose weight",
             ]}
-            label="What task can I do for you?"
-            elementId="task-input"
-            property="task"
-            value={data.task}
+            label="WHAT are you delivering?"
+            elementId="what-input"
+            property="questionWhat"
+            value={data.questionWhat}
             handleChangeData={handleChangeData}
             css={styles.dynamicInput}
             // multiline
@@ -176,12 +176,12 @@ const OpenAiWithBoldPromise = () => {
 
           <Input
             placeholders={[
-              "You need to focus on meeting the Mathematical Learning Standards for Grade 10 Math as outlined by the New York State Education Department. How would you amend the above list to be more in line with those standards",
+              "through an online course"
             ]}
-            label="Provide Context & Clarity"
-            elementId="context-input"
-            property="context"
-            value={data.context}
+            label="HOW are you delivering it?"
+            elementId="how-input"
+            property="questionHow"
+            value={data.questionHow}
             handleChangeData={handleChangeData}
             css={styles.dynamicInput}
             // multiline

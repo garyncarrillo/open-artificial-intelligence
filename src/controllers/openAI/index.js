@@ -191,3 +191,68 @@ const generatePrompt = (description) => {
   answer: I put everyone before myself no matter what. Even if its something to advance myself,I'll stop what im doing to help whoever is asking me for help. I have a very hard time saying no because I feel selfish If I do.
   answer: Determining where to priorize and allocate my time. Torn between full time job, side job I want to be full time job, working towards an MBA`;
   }
+
+  const AskBoldPromise = (params, typeQuestion, biggestDesireAnswer, biggestPainAnswer) => {
+    var prompt  = "";
+
+    switch (typeQuestion) {
+      case 1:
+        prompt = generatePromptBoldPromiseBiggestDesire(params)
+        break;
+      case 2:
+        prompt = generatePromptBoldPromiseBiggestPain(params, biggestDesireAnswer)
+        break;
+      case 3:
+        prompt = generatePromptBoldPromiseBiggestObjection(params, biggestDesireAnswer, biggestPainAnswer)
+        break;
+    }
+    return prompt;
+  }
+
+  const generatePromptBoldPromiseBiggestDesire = (params) => {
+    //var question = `What is the biggest desire of A group of diabetic people. if I am selling some recipes to improve the life of a diabetic person, Through a website I sell the PDFs with the recipes. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: Care & Protection.`;
+    var question = `What is the biggest desire of ${params.questionWho.toLowerCase()}. if ${params.questionWho.toLowerCase()}, ${params.questionHow.toLowerCase()}. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: ${params.humanDesire.join(", ")}`;
+    console.log("QUESTION NO 1 *** =>>>>> "+question)
+    return question;
+  }
+
+  const generatePromptBoldPromiseBiggestPain = (params, biggestDesireAnswer) => {
+    //var question = "What is the biggest pain for A group of diabetic people if their biggest desire is To improve the care and protection of a group of diabetic people, offer recipes through a website in PDF format?. The answer must begin with Have."
+    var question = `What is the biggest pain for ${params.questionWho.toLowerCase()} if their biggest desire is ${biggestDesireAnswer.toLowerCase()} offer ${params.questionHow.toLowerCase()}? The answer must begin with Have.`;
+    console.log("QUESTION NO 2  *** =>>>>> "+question)
+    return question
+  }
+
+  const generatePromptBoldPromiseBiggestObjection = (params, biggestDesireAnswer, biggestPainAnswer) => {
+    // var question = "In one line What prevents you as A group of diabetic people To improve the care and protection of a group of diabetic people, offer recipes through a website in PDF format?"
+    var question = `In one line What prevents you as ${params.questionWho.toLowerCase()} ${biggestDesireAnswer.toLowerCase()}, offer ${params.questionHow.toLowerCase()}? `;
+    console.log("QUESTION NO 3 *** =>>>>> "+question)
+    return question
+  }
+
+  export const chatOpenAiBoldPromise = async(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer) => {
+    try {
+
+      const completion = await openai.createCompletion({
+        model: params.optionSelected,
+        prompt: AskBoldPromise(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer),
+        temperature: params.temperature,
+        max_tokens: params.maxLength,
+        top_p: params.topP,
+        frequency_penalty: params.frecuencyPenalty,
+        presence_penalty: params.presencePenalty,
+      });
+      console.log('************************************');
+      console.log(completion.data);
+      return {
+        response: completion.data.choices[0].text,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    } catch(error) {
+      if (error.response) {
+        console.error(error.response.status, error.response.data);
+      } else {
+        console.error(`Error with OpenAI API request: ${error.message}`);
+      }
+    }
+  }
