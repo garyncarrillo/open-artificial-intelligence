@@ -212,7 +212,7 @@ const generatePrompt = (description) => {
 
   const generatePromptBoldPromiseBiggestDesire = (params) => {
     //var question = `What is the biggest desire of A group of diabetic people. if I am selling some recipes to improve the life of a diabetic person, Through a website I sell the PDFs with the recipes. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: Care & Protection.`;
-    var question = `What is the biggest desire of ${params.questionWho.toLowerCase()}. if ${params.questionWho.toLowerCase()}, ${params.questionHow.toLowerCase()}. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: ${params.humanDesire.join(", ")}`;
+    var question = `What is the biggest desire of ${params.questionWho.toLowerCase()}. if ${params.questionWhat.toLowerCase()}, ${params.questionHow.toLowerCase()}. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: ${params.humanDesire.join(", ")}`;
     console.log("QUESTION NO 1 *** =>>>>> "+question)
     return question;
   }
@@ -242,6 +242,7 @@ const generatePrompt = (description) => {
         top_p: params.topP,
         frequency_penalty: params.frecuencyPenalty,
         presence_penalty: params.presencePenalty,
+        suffix: ""
       });
       console.log('************************************');
       console.log(completion.data);

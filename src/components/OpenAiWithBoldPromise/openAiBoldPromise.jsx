@@ -122,19 +122,28 @@ const OpenAiWithBoldPromise = () => {
     var biggestDesireAnswer = null;
     var biggestPainAnswer = null;
     const { response, total_tokens } = await chatOpenAiBoldPromise(data, 1, biggestDesireAnswer, biggestPainAnswer);
-    setLoading(false);
-    console.log("ANSWER 1 <<<<=>>>> "+response);
-    biggestDesireAnswer = response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '');
+    biggestDesireAnswer = response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '');
+    var twoCharacter = biggestDesireAnswer.substring(0, 1)
+
+    if (twoCharacter.trim() == ',') {
+      biggestDesireAnswer = biggestDesireAnswer.replace(",", "")
+    }
+    if (twoCharacter.toLowerCase().trim() != 'to') {
+      biggestDesireAnswer = " to " +biggestDesireAnswer
+    }
+
+    console.log("ANSWER 1 <<<<=>>>> "+biggestDesireAnswer);
     
     const result = await chatOpenAiBoldPromise(data, 2, biggestDesireAnswer, biggestPainAnswer);
-    biggestPainAnswer = result.response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '');
+    biggestPainAnswer = result.response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '');
     console.log("ANSWER 2 <<<<=>>>> "+result.response)
 
     const result2 = await chatOpenAiBoldPromise(data, 3, biggestDesireAnswer, biggestPainAnswer);
-    var biggestObjection = result2.response.replace(/(\r\n|\n|\r)/gm, "").replace(/['"]+/g, '').replace(/\./g, '')
+    var biggestObjection = result2.response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '')
     console.log("ANSWER 3 <<<<=>>>> "+biggestObjection);
 
-    setAnswer("How "+biggestDesireAnswer.toLowerCase()+" without "+biggestPainAnswer.toLowerCase()+ " even if you’ve tried and "+biggestObjection.toLowerCase());
+    setAnswer("How "+biggestDesireAnswer.toLowerCase()+", without "+biggestPainAnswer.toLowerCase()+ " even if you’ve tried and "+biggestObjection.toLowerCase());
+    setLoading(false);
   };
 
   const handleChange = (event) => {
