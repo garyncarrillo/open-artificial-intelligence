@@ -123,12 +123,15 @@ const OpenAiWithBoldPromise = () => {
     var biggestPainAnswer = null;
     const { response, total_tokens } = await chatOpenAiBoldPromise(data, 1, biggestDesireAnswer, biggestPainAnswer);
     biggestDesireAnswer = response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '');
-    var twoCharacter = biggestDesireAnswer.substring(0, 1)
+    biggestDesireAnswer = biggestDesireAnswer.trim();
+
+    var twoCharacter = biggestDesireAnswer.substring(0, 2)
 
     if (twoCharacter.trim() == ',') {
       biggestDesireAnswer = biggestDesireAnswer.replace(",", "")
     }
-    if (twoCharacter.toLowerCase().trim() != 'to') {
+    
+    if (twoCharacter.trim().toLowerCase() != 'to') {
       biggestDesireAnswer = " to " +biggestDesireAnswer
     }
 
