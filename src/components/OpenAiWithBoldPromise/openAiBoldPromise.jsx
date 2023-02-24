@@ -149,7 +149,7 @@ const OpenAiWithBoldPromise = () => {
         <div className="left-side" css={styles.wrapper}>
           <Input
             placeholder={
-              "Eg. Women aged between 35 and 45"
+              "Eg. women aged between 35 and 45 who never lost the post-baby weight"
             }
             label="WHO is it for?"
             elementId="who-input"
@@ -161,7 +161,7 @@ const OpenAiWithBoldPromise = () => {
 
           <Input
             placeholder={
-              "Eg. Want lose weight"
+              "Eg. lose 20 pounds in 20 days in less than 20 minutes a day, even if you’ve struggled to lose weight and keep it off in the past"
             }
             label="WHAT are you delivering?"
             elementId="what-input"
@@ -175,7 +175,7 @@ const OpenAiWithBoldPromise = () => {
 
           <Input
             placeholder={
-              "Eg. Through an online course"
+              "Eg. 6 week online course with a Facebook Group and Q&A calls, using a new blend of crossfit and Ayurvedic medicine"
             }
             label="HOW are you delivering it?"
             elementId="how-input"

@@ -36,6 +36,7 @@ export const Sidebar = ({
         handleChangeData={handleChangeData}
         nameField={"humanDesire"}
 				value={data.humanDesire}
+        placeholder={'Select Human Desire'}
         multiple
       />
       <Select

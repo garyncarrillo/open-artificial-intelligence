@@ -7,4 +7,7 @@ margin-bottom: 15px;
     font-size: 14px;
     font-weight: 600
 }
+.placeholder{
+    color: rgba(0,0,0,0.4);
+}
 `

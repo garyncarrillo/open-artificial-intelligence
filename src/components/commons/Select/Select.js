@@ -8,6 +8,15 @@ import { BootstrapInput } from '../BootstrapInput';
 import CheckBox from '@mui/material/Checkbox';
 
 export const Select = ({label, value, handleChangeData, options=[], nameField, ...rest}) => {
+  const getRenderValue = (selected) =>{
+    if(typeof (selected) === 'string' ){
+      return selected
+    }else{
+      if(!selected.length)
+        return  <span className='placeholder'>{rest.placeholder}</span>
+      return  selected.join(', ')
+    }
+  }
   return (
       <FormControl variant="standard" css={styles.wrapper} >
         <InputLabel shrink id="demo-simple-select-label">{label}</InputLabel>
@@ -16,9 +25,10 @@ export const Select = ({label, value, handleChangeData, options=[], nameField, .
           id="demo-simple-select"
           value={value}
           //   label={label}
+          displayEmpty={true}
           input={<BootstrapInput />}
           onChange={(event, value) => handleChangeData(nameField, event.target.value)}
-          renderValue={(selected) => typeof (selected) === 'string' ? selected : selected.join(', ')}
+          renderValue={getRenderValue}
           {...rest}
         >  
             {
