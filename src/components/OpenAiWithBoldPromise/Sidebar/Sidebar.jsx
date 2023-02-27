@@ -6,16 +6,6 @@ import { CircularProgress } from "@mui/material";
 import * as styles from "./Sidebar.styles";
 import { Button, Select, Slider } from "../../commons";
 
-const humanDisireOptions = [
-  {id: 'Survival', label: 'Survival'},
-  {id: 'Pleasure', label: 'Pleasure'},
-  {id: 'Freedom', label: 'Freedom'},
-  {id: 'Relationships', label: 'Relationships'},
-  {id: 'Success', label: 'Success'},
-  {id: 'Care & Protection', label: 'Care & Protection'},
-  {id: 'Likability', label: 'Likability'}
-];
-
 export const Sidebar = ({
   data,
   handleChangeData,
@@ -27,6 +17,7 @@ export const Sidebar = ({
   handlerSend,
   loading,
   answer,
+  humanDisireOptions = []
 }) => {
   return (
     <div css={styles.container}>

@@ -193,12 +193,12 @@ const generatePrompt = (description) => {
   answer: Determining where to priorize and allocate my time. Torn between full time job, side job I want to be full time job, working towards an MBA`;
   }
 
-  const AskBoldPromise = (params, typeQuestion, biggestDesireAnswer, biggestPainAnswer) => {
+  const AskBoldPromise = (params, typeQuestion, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions) => {
     var prompt  = "";
 
     switch (typeQuestion) {
       case 1:
-        prompt = generatePromptBoldPromiseBiggestDesire(params)
+        prompt = generatePromptBoldPromiseBiggestDesire(params, humanDisireOptions)
         break;
       case 2:
         prompt = generatePromptBoldPromiseBiggestPain(params, biggestDesireAnswer)
@@ -210,9 +210,18 @@ const generatePrompt = (description) => {
     return prompt;
   }
 
-  const generatePromptBoldPromiseBiggestDesire = (params) => {
+  const generatePromptBoldPromiseBiggestDesire = (params, humanDisireOptions) => {
     //var question = `What is the biggest desire of A group of diabetic people. if I am selling some recipes to improve the life of a diabetic person, Through a website I sell the PDFs with the recipes. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: Care & Protection.`;
-    var question = `What is the biggest desire of ${params.questionWho.toLowerCase()}. if ${params.questionWhat.toLowerCase()}, ${params.questionHow.toLowerCase()}. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: ${params.humanDesire.join(", ")}`;
+    var arrayHumanDesire = [ ];
+    params.humanDesire.forEach((element, index) => {
+      var humanDesire = humanDisireOptions.find((desire, ix) => desire.id == element);
+
+      if  (humanDesire) {
+        arrayHumanDesire.push(humanDesire.detail) 
+      }
+    })
+
+    var question = `What is the biggest desire of ${params.questionWho.toLowerCase()}. if ${params.questionWhat.toLowerCase()}, ${params.questionHow.toLowerCase()}. The answer must begin with an infinitive verb. Also, keep these basic desires in mind to prepare your answer: ${arrayHumanDesire.join(", ")}`;
     console.log("QUESTION NO 1 *** =>>>>> "+question)
     return question;
   }
@@ -231,12 +240,12 @@ const generatePrompt = (description) => {
     return question
   }
 
-  export const chatOpenAiBoldPromise = async(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer) => {
+  export const chatOpenAiBoldPromise = async(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions) => {
     try {
 
       const completion = await openai.createCompletion({
         model: params.optionSelected,
-        prompt: AskBoldPromise(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer),
+        prompt: AskBoldPromise(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions),
         temperature: params.temperature,
         max_tokens: params.maxLength,
         top_p: params.topP,

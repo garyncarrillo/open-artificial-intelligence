@@ -117,11 +117,21 @@ const OpenAiWithBoldPromise = () => {
     },
   ];
 
+  const humanDisireOptions = [
+    {id: 'Survival', label: 'Survival', detail: 'enjoyment of life, life extension'},
+    {id: 'Pleasure', label: 'Pleasure', detail: 'enjoy food, beverages and experiences'},
+    {id: 'Freedom', label: 'Freedom', detail: 'freedom from fear, pain and danger'},
+    {id: 'Relationships', label: 'Relationships', detail: 'sexual, companionship & compatibility'},
+    {id: 'Success', label: 'Success', detail: 'be superior, win, keep up with the Joneses'},
+    {id: 'Care & Protection', label: 'Care & Protection', detail: 'safety, care/protection loved ones'},
+    {id: 'Likability', label: 'Likability', detail: 'social approval, being part of the “in” crowd'}
+  ];
+
   const handlerSend = async () => {
     setLoading(true);
     var biggestDesireAnswer = null;
     var biggestPainAnswer = null;
-    const { response, total_tokens } = await chatOpenAiBoldPromise(data, 1, biggestDesireAnswer, biggestPainAnswer);
+    const { response, total_tokens } = await chatOpenAiBoldPromise(data, 1, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions);
     biggestDesireAnswer = response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '');
     biggestDesireAnswer = biggestDesireAnswer.trim();
 
@@ -137,11 +147,11 @@ const OpenAiWithBoldPromise = () => {
 
     console.log("ANSWER 1 <<<<=>>>> "+biggestDesireAnswer);
     
-    const result = await chatOpenAiBoldPromise(data, 2, biggestDesireAnswer, biggestPainAnswer);
+    const result = await chatOpenAiBoldPromise(data, 2, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions);
     biggestPainAnswer = result.response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '');
     console.log("ANSWER 2 <<<<=>>>> "+result.response)
 
-    const result2 = await chatOpenAiBoldPromise(data, 3, biggestDesireAnswer, biggestPainAnswer);
+    const result2 = await chatOpenAiBoldPromise(data, 3, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions);
     var biggestObjection = result2.response.replace(/(\r\n|\n|\r)/gm, " ").replace(/['"]+/g, '').replace(/\./g, '')
     console.log("ANSWER 3 <<<<=>>>> "+biggestObjection);
 
@@ -216,6 +226,7 @@ const OpenAiWithBoldPromise = () => {
           handlerSend={handlerSend}
           loading={loading}
           answer={answer}
+          humanDisireOptions={humanDisireOptions}
         />
       </div>
       <div className="container-response" css={styles.container}>
