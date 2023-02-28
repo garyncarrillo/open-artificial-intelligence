@@ -247,7 +247,10 @@ const generatePrompt = (description) => {
     "How to find amazin property deals and grow your wealth without a lot of starting capital, even if you've struggled to get funding in the past."
     "How to have clear and open communication with your teenager without the drama even if there's currently a lot of friction and Rebellious Behavior."
     "How to be a confident leader and increase productivity without a lot of "ra ra ra!", even if you're struggling with massive staff turnover and low morale right now."
-    For ${who}, if ${what}, ${how}.`;
+    For ${who}, if ${what}, through ${how}.
+    
+    
+    `;
     return question;
   }
 
@@ -303,7 +306,7 @@ const generatePrompt = (description) => {
         model: params.optionSelected,
         prompt: question,
         temperature: params.temperature,
-        max_tokens: params.maxLength,
+        max_tokens: 2048,
         top_p: params.topP,
         frequency_penalty: params.frecuencyPenalty,
         presence_penalty: params.presencePenalty,

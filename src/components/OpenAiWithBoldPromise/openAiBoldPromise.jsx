@@ -31,7 +31,7 @@ const OpenAiWithBoldPromise = () => {
   const [data, setData] = useState({
     temperature: 0.7,
     maxLength: 256,
-    max_tokens: 100,
+    max_tokens: 2048,
     topP: 1,
     frecuencyPenalty: 0,
     presencePenalty: 0,
