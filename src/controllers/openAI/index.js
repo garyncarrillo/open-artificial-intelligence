@@ -226,6 +226,31 @@ const generatePrompt = (description) => {
     return question;
   }
 
+  const RemovePoint = (text) => {
+    if ( (text.toLowerCase().length > 0) && ((text.length - 1) > 0) ){
+      var point = text.substring(text.length - 1, text.length)
+      
+      if (point == '.') {
+        text = text.substring(0, text.length - 1)
+      }
+    }
+   
+    return text;
+  }
+
+  const generatePromptBoldPromise = (params) => {
+    var who = RemovePoint(params.questionWho.toLowerCase().trim());
+    var what = RemovePoint(params.questionWhat.toLowerCase());
+    var how = RemovePoint(params.questionHow.toLowerCase());
+      
+    var question = `Build a phrase like these ones: 
+    "How to find amazin property deals and grow your wealth without a lot of starting capital, even if you've struggled to get funding in the past."
+    "How to have clear and open communication with your teenager without the drama even if there's currently a lot of friction and Rebellious Behavior."
+    "How to be a confident leader and increase productivity without a lot of "ra ra ra!", even if you're struggling with massive staff turnover and low morale right now."
+    For ${who}, if ${what}, ${how}.`;
+    return question;
+  }
+
   const generatePromptBoldPromiseBiggestPain = (params, biggestDesireAnswer) => {
     //var question = "What is the biggest pain for A group of diabetic people if their biggest desire is To improve the care and protection of a group of diabetic people, offer recipes through a website in PDF format?. The answer must begin with Have."
     var question = `What is the biggest pain for ${params.questionWho.toLowerCase()} if their biggest desire is ${biggestDesireAnswer.toLowerCase()} offer ${params.questionHow.toLowerCase()}? The answer must begin with Have.`;
@@ -246,6 +271,37 @@ const generatePrompt = (description) => {
       const completion = await openai.createCompletion({
         model: params.optionSelected,
         prompt: AskBoldPromise(params, typeQuestion, biggestDesireAnswer, biggestPainAnswer, humanDisireOptions),
+        temperature: params.temperature,
+        max_tokens: params.maxLength,
+        top_p: params.topP,
+        frequency_penalty: params.frecuencyPenalty,
+        presence_penalty: params.presencePenalty,
+        suffix: ""
+      });
+      console.log('************************************');
+      console.log(completion.data);
+      return {
+        response: completion.data.choices[0].text,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    } catch(error) {
+      if (error.response) {
+        console.error(error.response.status, error.response.data);
+      } else {
+        console.error(`Error with OpenAI API request: ${error.message}`);
+      }
+    }
+  }
+
+  export const chatOpenAiBoldPromiseV2 = async(params) => {
+    try {
+      var question = generatePromptBoldPromise(params);
+      console.log("<<<>>>>>>>>>>>>>>>>>>")
+      console.log(question)
+      console.log("<<<>>>>>>>>>>>>>>>>>>")
+      const completion = await openai.createCompletion({
+        model: params.optionSelected,
+        prompt: question,
         temperature: params.temperature,
         max_tokens: params.maxLength,
         top_p: params.topP,

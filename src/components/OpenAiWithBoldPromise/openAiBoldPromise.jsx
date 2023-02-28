@@ -13,7 +13,7 @@ import Select from "@mui/material/Select";
 import { CircularProgress } from "@mui/material";
 
 //controller or integrations
-import { chatOpenAI, engineList, chatOpenAiBoldPromise } from "../../controllers/openAI";
+import { chatOpenAI, engineList, chatOpenAiBoldPromise, chatOpenAiBoldPromiseV2 } from "../../controllers/openAI";
 import { Sidebar } from "./Sidebar";
 
 import * as styles from "./openAi.styles";
@@ -29,11 +29,11 @@ const OpenAiWithBoldPromise = () => {
   const [questionSelected, setQuestionSelected] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    temperature: 0.5,
-    maxLength: 100,
+    temperature: 0.7,
+    maxLength: 256,
     max_tokens: 100,
     topP: 1,
-    frecuencyPenalty: 0.2,
+    frecuencyPenalty: 0,
     presencePenalty: 0,
     bestOf: 1,
     optionSelected: "text-davinci-003",
@@ -159,6 +159,15 @@ const OpenAiWithBoldPromise = () => {
     setLoading(false);
   };
 
+  const handlerSendV2 = async () => {
+    setLoading(true);
+    var biggestDesireAnswer = null;
+    var biggestPainAnswer = null;
+    const { response, total_tokens } = await chatOpenAiBoldPromiseV2(data);
+    setAnswer(response.replace(/(\r\n|\n|\r)/gm, " "));
+    setLoading(false);
+  };
+
   const handleChange = (event) => {
     setQuestionSelected(event.target.value);
   };
@@ -211,7 +220,7 @@ const OpenAiWithBoldPromise = () => {
 
           <Button
             disabled={loading}
-            handleClick={handlerSend}
+            handleClick={handlerSendV2}
             className="sendButton hideOnMobile"
           />
         </div>
