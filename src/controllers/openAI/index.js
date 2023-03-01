@@ -326,3 +326,51 @@ const generatePrompt = (description) => {
       }
     }
   }
+
+
+  export const chatOpenAIFree = async(params) => {
+    if (!configuration.apiKey) {
+        alert("OpenAI API key not configured, please follow instructions in README.md")
+        return;
+    }
+    
+    if (!params.questions) {
+        alert("Please enter a valid description")
+        return;
+    }
+  
+    try {
+      const completion = await openai.createCompletion({
+        model: params.optionSelected, //"text-davinci-002"
+        prompt: generatePromptWithSimpleQuestion(params),
+        temperature: params.temperature,
+        max_tokens: params.maxLength,
+        top_p: params.topP,
+        frequency_penalty: params.frecuencyPenalty,
+        presence_penalty: params.presencePenalty,
+      });
+      console.log('************************************');
+      console.log(completion.data);
+      return {
+        response: completion.data.choices[0].text,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    } catch(error) {
+      if (error.response) {
+        console.error(error.response.status, error.response.data);
+      } else {
+        console.error(`Error with OpenAI API request: ${error.message}`);
+      }
+    }
+  }
+  
+  
+  const generatePromptWithSimpleQuestion = (params) => {
+    var question = `${params.questions}
+    
+    
+    `
+    console.log("**********************")
+    console.log(question)
+    return question;
+  }

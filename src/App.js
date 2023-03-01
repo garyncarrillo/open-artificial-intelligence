@@ -4,6 +4,7 @@ import OpenAi from './components/openAi';
 import ChatGpt from './components/chatGpt';
 import Training from  './components/training';
 import OpenAiWithBoldPromise from './components/OpenAiWithBoldPromise';
+import OpenAiWithChatFree from './components/OpenAiWithChatFree';
 
 import {
   createBrowserRouter,
@@ -27,6 +28,10 @@ function App() {
     {
       path: "/training",
       element: <Training/>,
+    },
+    {
+      path: "/chat-free",
+      element: <OpenAiWithChatFree/>,
     },
 
   ]);
