@@ -29,14 +29,14 @@ const OpenAiWithChatFree = () => {
   const [questionSelected, setQuestionSelected] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    temperature: 0.7,
+    temperature: 0.6,
     maxLength: 256,
     max_tokens: 256,
     topP: 1,
-    frecuencyPenalty: 0,
-    presencePenalty: 0,
+    frecuencyPenalty: 1,
+    presencePenalty: 1,
     bestOf: 1,
-    optionSelected: "text-davinci-003",
+    optionSelected: "gpt-3.5-turbo-0301",
     questions: "",
     voiceSelected: "Casual",
     audiencesSelected: "Neutral",
@@ -55,6 +55,8 @@ const OpenAiWithChatFree = () => {
   ];
 
   const modelList = [
+    { id: "gpt-3.5-turbo-0301", label: "GPT 3.5 Turbo 0301" },
+    { id: "gpt-3.5-turbo", label: "GPT 3.5 Turbo" },
     { id: "text-davinci-003", label: "Davinci 003" },
     { id: "text-curie-001", label: "Curie 001" },
     { id: "text-babbage-001", label: "Babbage 001" },
@@ -120,7 +122,7 @@ const OpenAiWithChatFree = () => {
   const handlerChatFree = async () => {
     setLoading(true);
     const { response, total_tokens } = await chatOpenAIFree(data);
-    var newAnswer = answer+"\n"+data.questions+"\n"+response.replace(/(\r\n|\n|\r)/gm, "");
+    var newAnswer = answer+"\n"+data.questions+"\n"+response;
     setAnswer(newAnswer);
     setLoading(false);
   };

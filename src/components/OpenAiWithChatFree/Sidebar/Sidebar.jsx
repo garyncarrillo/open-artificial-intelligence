@@ -69,6 +69,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("frecuencyPenalty", event.target.value)
         }
+        min={0}
+        max={2}
       />
       <Slider
         property="Best of"
@@ -76,6 +78,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("bestOf", event.target.value)
         }
+        min={0}
+        max={20}
       />
       <Slider
         property="Presence penalty"
@@ -83,28 +87,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("presencePenalty", event.target.value)
         }
-      />
-      <Input
-        placeholder={
-          "Eg. write a tagline for an ice cream shop"
-        }
-        label="Inject start text"
-        elementId="inject-start-input"
-        property="injectStartText"
-        value={data.injectStartText}
-        handleChangeData={handleChangeData}
-        css={stylesInput.dynamicInput}
-      />
-      <Input
-        placeholder={
-          "Eg. write a tagline for an ice cream shop"
-        }
-        label="Inject restart text"
-        elementId="inject-restart-input"
-        property="injectRestartText"
-        value={data.injectRestartText}
-        handleChangeData={handleChangeData}
-        css={stylesInput.dynamicInput}
+        min={0}
+        max={2}
       />
       {/* <p>Tokens available: {totalToken}</p> */}
 
