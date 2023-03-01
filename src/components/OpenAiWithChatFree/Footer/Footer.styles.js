@@ -5,7 +5,8 @@ export const footer = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: absolute;
+    bottom: 0;
   box-sizing: border-box;
   width: 100%;
   .left-side {
@@ -54,13 +55,14 @@ export const footer = css`
     }
   }
   @media (max-width: 768px) {
+    position: relative;
     flex-direction: column;
     gap: 20px;
     .right-side .content{
         text-align: center;
     }
   }
-  @media (min-height: 1000px) {
+  ${'' /* @media (min-height: 1000px) {
     position: absolute;
     bottom: 0;
   }
@@ -69,5 +71,5 @@ export const footer = css`
   }
   @media (max-width: 1920px) and (max-height: 1080px) {
     position: relative;
-  }
+  } */}
 `;

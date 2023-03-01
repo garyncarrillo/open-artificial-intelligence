@@ -328,21 +328,25 @@ const generatePrompt = (description) => {
   }
 
 
-  export const chatOpenAIFree = async(params) => {
+  export const chatOpenAIFree = async(params, question) => {
     if (!configuration.apiKey) {
         alert("OpenAI API key not configured, please follow instructions in README.md")
         return;
     }
     
-    if (!params.questions) {
-        alert("Please enter a valid description")
-        return;
-    }
+    // if (!params.questions) {
+    //     alert("Please enter a valid description")
+    //     return;
+    // }
   
     try {
       const completion = await openai.createCompletion({
         model: params.optionSelected, //"text-davinci-002"
-        prompt: generatePromptWithSimpleQuestion(params),
+        // prompt: generatePromptWithSimpleQuestion(params),
+        prompt: `${question}
+    
+    
+        `,
         temperature: params.temperature,
         max_tokens: params.maxLength,
         top_p: params.topP,

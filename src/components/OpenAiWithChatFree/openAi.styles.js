@@ -90,10 +90,12 @@ export const body = css`
   align-items: center;
   min-height: 100vh;
   .link-goto{
-    text-decoration: none;
+    a{
+      text-decoration: none;
+      font-weight: 500;
+      color: #000;
+    }
     padding: 7px 12px;
-    border-radius: 4px;
-    border: 1px solid gray;
     display: flex;
     align-items: center;
     justify-content: center;

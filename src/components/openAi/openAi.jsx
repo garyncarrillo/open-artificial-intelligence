@@ -18,7 +18,7 @@ import { Sidebar } from "../Sidebar";
 
 import * as styles from "./openAi.styles";
 import InputWithDynamicPlaceholder from "../InputWithDynamicPlaceholder/InputWithDynamicPlaceholder";
-import { Input, Button } from "../commons";
+import { Input, Button, NavBar } from "../commons";
 import { Header } from "./Header";
 import Footer from "./Footer/Footer";
 import { Link } from "react-router-dom";
@@ -141,7 +141,7 @@ const OpenAi = () => {
 
   return (
     <div className="wrapperForm-im-laura" css={styles.body}>
-    <Link to={'/bold-promise'} className='link-goto'>Go to Laura (Bold Promise)</Link>
+    <NavBar />
       <Header />
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>

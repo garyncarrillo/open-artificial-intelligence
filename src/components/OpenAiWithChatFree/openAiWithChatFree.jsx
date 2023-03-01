@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../App.css";
 import Box from "@mui/material/Box";
 // import Button from '@mui/material/Button';
@@ -18,10 +18,11 @@ import { Sidebar } from "./Sidebar";
 
 import * as styles from "./openAi.styles";
 import InputWithDynamicPlaceholder from "../InputWithDynamicPlaceholder/InputWithDynamicPlaceholder";
-import { Input, Button } from "../commons";
+import { Input, Button, NavBar } from "../commons";
 import { Header } from "./Header";
 import Footer from "./Footer/Footer";
 import { Link } from "react-router-dom";
+import { css } from "@emotion/react";
 
 const OpenAiWithChatFree = () => {
   const [answer, setAnswer] = useState("");
@@ -44,6 +45,7 @@ const OpenAiWithChatFree = () => {
     injectStartText: "",
     injectRestartText: "",
   });
+  const [questionData, setQuestionData] = useState([]);
   const [engineOptions, setEngineOption] = useState([]);
   const [totalToken, setTotalToken] = useState(500);
   const voiceOptions = [
@@ -53,6 +55,8 @@ const OpenAiWithChatFree = () => {
     { id: "Witty", label: "Witty" },
     { id: "Casual", label: "Casual" },
   ];
+
+  const textAreaRef = useRef();
 
   const modelList = [
     { id: "gpt-3.5-turbo-0301", label: "GPT 3.5 Turbo 0301" },
@@ -73,6 +77,7 @@ const OpenAiWithChatFree = () => {
     { id: "Business", label: "Business" },
     { id: "Friendly", label: "Friendly" },
   ];
+
 
   const handleChangeData = (key, value) => {
     setData({ ...data, [key]: value });
@@ -120,11 +125,35 @@ const OpenAiWithChatFree = () => {
   ];
 
   const handlerChatFree = async () => {
-    setLoading(true);
-    const { response, total_tokens } = await chatOpenAIFree(data);
-    var newAnswer = answer+"\n"+data.questions+"\n"+response;
-    setAnswer(newAnswer);
-    setLoading(false);
+    console.log(textAreaRef.current)
+    let question = '';
+    if(!questionData.length){
+      // handleChangeData('questions', textAreaRef.current.value);
+      question = textAreaRef.current.innerText;
+      const { response, total_tokens } = await chatOpenAIFree(data, question);
+      const questionItem = {
+        q: textAreaRef.current.value,
+        a: response.trim(),
+        tokens: total_tokens
+      }
+      setQuestionData([textAreaRef.current.innerText, response.trim()])
+      textAreaRef.current.innerHTML = `${question}</br></br><span style="background-color: #d2f4d3">${questionItem.a}</span></br></br></br>`
+    }else{
+      const lines = textAreaRef.current.innerText.split('\n');
+      debugger;
+      const newLines = lines.filter(line=>!questionData.includes(line));
+      // handleChangeData('questions',newLines.join('\n'));
+      question = newLines.join('\n')
+      const { response } = await chatOpenAIFree(data, question);
+      // textAreaRef.current.value = `${textAreaRef.current.value}\n${response.trim()}`
+      textAreaRef.current.innerHTML = `${textAreaRef.current.innerHTML}</br></br><span style="background-color: #d2f4d3">${response.trim()}</span></br></br></br>`
+      setQuestionData([...questionData, ...question.split("\n"), response.trim()])
+    }
+    // setLoading(true);
+    // const { response, total_tokens } = await chatOpenAIFree(data);
+    // var newAnswer = answer+"\n"+data.questions+"\n"+response;
+    // setAnswer(newAnswer);
+    // setLoading(false);
   };
 
   const handleChange = (event) => {
@@ -133,21 +162,14 @@ const OpenAiWithChatFree = () => {
 
   return (
     <div className="wrapperForm-im-laura" css={styles.body}>
-    <Link to={'/'} className='link-goto'>Go to Laura</Link>
+    <NavBar />
+    {/* <Link to={'/'} className='link-goto'>Go to Laura</Link> */}
       <Header />
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>
-          <Input
-            placeholder={
-              "Eg. write a tagline for an ice cream shop"
-            }
-            label="Write your question"
-            elementId="questions-input"
-            property="questions"
-            value={data.questions}
-            handleChangeData={handleChangeData}
-            css={styles.dynamicInput}
-          />
+          <div contentEditable={true} rows={20} css={css`width: 100%; padding: 10px; min-height: 300px;
+          border: 1px solid gray;
+          border-radius: 3px;`} ref={textAreaRef}></div>
 
           <Button
             disabled={loading}
@@ -167,19 +189,6 @@ const OpenAiWithChatFree = () => {
           loading={loading}
           answer={answer}
         />
-      </div>
-      <div className="container-response" css={styles.container}>
-        <FormControl variant="standard">
-        <span className="result-label">Result</span>
-          <TextField
-            className="textArea"
-            id="outlined-multiline-static"
-            multiline
-            rows={4}
-            defaultValue={answer}
-            css={styles.inputs("100%", "250px")}
-          />
-        </FormControl>
       </div>
      <Footer />
     </div>
