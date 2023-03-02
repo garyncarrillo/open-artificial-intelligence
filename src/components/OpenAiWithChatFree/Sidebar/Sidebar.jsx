@@ -27,6 +27,8 @@ export const Sidebar = ({
         handleChangeData={handleChangeData}
         nameField={"optionSelected"}
 				value={data.optionSelected}
+        textToolTip={"The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code. Learn more."}
+        positionToolTip={"top"}
       />
       {/* <Select
         label={"Audience"}
@@ -48,6 +50,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("temperature", event.target.value)
         }
+        textToolTip={"Control randomness. Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive."}
+        positionToolTip={"left"}
       />
       <Slider
         property="Maximum length"
@@ -55,6 +59,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("max_tokens", event.target.value)
         }
+        textToolTip={"The maximum number of tokens to generate. Requests can use up to 2,048 or 4000 tokens sjared between prompt and completion. The exact limit varies by model. (One token is roughly 4 characters for normal English text)"}
+        positionToolTip={"left"}
       />
       <Slider
         property="Top p"
@@ -62,6 +68,8 @@ export const Sidebar = ({
         onChange={(event) =>
           handleChangeData("topP", event.target.value)
         }
+        textToolTip={"Controls diversity vua nucleus sampling: 0.5 means half of all likelihood-weighted option are considered."}
+        positionToolTip={"left"}
       />
       <Slider
         property="Frecuency penalty"
@@ -71,6 +79,8 @@ export const Sidebar = ({
         }
         min={0}
         max={2}
+        textToolTip={"How much to penalize new tokens based on whether they appear in the text so far. Increases the model's likelihood to talk about new topics."}
+        positionToolTip={"left"}
       />
       <Slider
         property="Best of"
@@ -80,6 +90,8 @@ export const Sidebar = ({
         }
         min={0}
         max={20}
+        textToolTip={"Generate multiple completions server-side, and display only the best. Streaming only work when set to 1. Since it acts as a multipler on the number of completions, this parameters can eat into your token quota very quickly - use caution!."}
+        positionToolTip={"left"}
       />
       <Slider
         property="Presence penalty"
@@ -89,6 +101,8 @@ export const Sidebar = ({
         }
         min={0}
         max={2}
+        textToolTip={"How much to penalize new tokens based on wheter they appear in the text so far. Increases the model's likelihood to talk about new topics."}
+        positionToolTip={"left"}
       />
       {/* <p>Tokens available: {totalToken}</p> */}
 

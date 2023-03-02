@@ -30,4 +30,11 @@ export const wrapper = () => css`
    .slider-range {
         width: 100%;
    }
+
+   .tool-tip {
+	   &.MuiTooltip{
+			background: red !important;
+			color: red !important;
+		}
+   }
 `
