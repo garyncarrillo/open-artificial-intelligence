@@ -127,10 +127,12 @@ const OpenAiWithChatFree = () => {
   const handlerChatFree = async () => {
     console.log(textAreaRef.current)
     let question = '';
+    setLoading(true);
     if(!questionData.length){
       // handleChangeData('questions', textAreaRef.current.value);
       question = textAreaRef.current.innerText;
       const { response, total_tokens } = await chatOpenAIFree(data, question);
+      debugger;
       const questionItem = {
         q: textAreaRef.current.value,
         a: response.trim(),
@@ -140,7 +142,6 @@ const OpenAiWithChatFree = () => {
       textAreaRef.current.innerHTML = `${question}</br></br><span style="background-color: #d2f4d3">${questionItem.a}</span></br></br></br>`
     }else{
       const lines = textAreaRef.current.innerText.split('\n');
-      debugger;
       const newLines = lines.filter(line=>!questionData.includes(line));
       // handleChangeData('questions',newLines.join('\n'));
       question = newLines.join('\n')
@@ -149,11 +150,11 @@ const OpenAiWithChatFree = () => {
       textAreaRef.current.innerHTML = `${textAreaRef.current.innerHTML}</br></br><span style="background-color: #d2f4d3">${response.trim()}</span></br></br></br>`
       setQuestionData([...questionData, ...question.split("\n"), response.trim()])
     }
-    // setLoading(true);
+    
     // const { response, total_tokens } = await chatOpenAIFree(data);
     // var newAnswer = answer+"\n"+data.questions+"\n"+response;
     // setAnswer(newAnswer);
-    // setLoading(false);
+    setLoading(false);
   };
 
   const handleChange = (event) => {
@@ -167,7 +168,8 @@ const OpenAiWithChatFree = () => {
       <Header />
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>
-          <div contentEditable={true} rows={20} css={css`width: 100%; padding: 10px; min-height: 300px;
+          <div contentEditable={true} rows={20} css={css`width: 100%; padding: 10px; height: 300px;
+          overflow-y: auto;
           border: 1px solid gray;
           border-radius: 3px;`} ref={textAreaRef}></div>
 

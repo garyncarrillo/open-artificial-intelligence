@@ -54,6 +54,8 @@ const OpenAi = () => {
   ];
 
   const modelList = [
+    { id: "gpt-3.5-turbo-0301", label: "GPT 3.5 Turbo 0301" },
+    { id: "gpt-3.5-turbo", label: "GPT 3.5 Turbo" },
     { id: "text-davinci-003", label: "Davinci 003" },
     { id: "text-curie-001", label: "Curie 001" },
     { id: "text-babbage-001", label: "Babbage 001" },

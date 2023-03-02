@@ -9,6 +9,11 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+const chatCompletion = [
+                          "gpt-3.5-turbo-0301",
+                          "gpt-3.5-turbo"
+                       ];
+
 export const createOpenAI = async(params) => {
   if (!configuration.apiKey) {
       alert("OpenAI API key not configured, please follow instructions in README.md")
@@ -52,21 +57,32 @@ export const chatOpenAI = async(params) => {
   }
 
   try {
-    const completion = await openai.createCompletion({
-      model: params.optionSelected, //"text-davinci-002"
-      prompt: generatePromptwitQuestion(params),
-      temperature: params.temperature,
-      max_tokens: params.maxLength,
-      top_p: params.topP,
-      frequency_penalty: params.frecuencyPenalty,
-      presence_penalty: params.presencePenalty,
-    });
-    console.log('************************************');
-    console.log(completion.data);
-    return {
-      response: completion.data.choices[0].text,
-      total_tokens: completion.data.usage.total_tokens
-    };
+    if (chatCompletion.includes(params.optionSelected)) {
+      const completion = await openai.createChatCompletion({
+        model: params.optionSelected,
+        messages: [{role: "user", content: generatePromptwitQuestion(params)}],
+      });
+      return {
+        response: completion.data.choices[0].message.content,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    } else {
+      const completion = await openai.createCompletion({
+        model: params.optionSelected, //"text-davinci-002"
+        prompt: generatePromptwitQuestion(params),
+        temperature: params.temperature,
+        max_tokens: params.maxLength,
+        top_p: params.topP,
+        frequency_penalty: params.frecuencyPenalty,
+        presence_penalty: params.presencePenalty,
+      });
+      console.log('************************************');
+      console.log(completion.data);
+      return {
+        response: completion.data.choices[0].text,
+        total_tokens: completion.data.usage.total_tokens
+      };
+    }
   } catch(error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
@@ -298,26 +314,37 @@ const generatePrompt = (description) => {
 
   export const chatOpenAiBoldPromiseV2 = async(params) => {
     try {
-      var question = generatePromptBoldPromise(params);
-      console.log("<<<>>>>>>>>>>>>>>>>>>")
-      console.log(question)
-      console.log("<<<>>>>>>>>>>>>>>>>>>")
-      const completion = await openai.createCompletion({
-        model: params.optionSelected,
-        prompt: question,
-        temperature: params.temperature,
-        max_tokens: 2048,
-        top_p: params.topP,
-        frequency_penalty: params.frecuencyPenalty,
-        presence_penalty: params.presencePenalty,
-        suffix: ""
-      });
-      console.log('************************************');
-      console.log(completion.data);
-      return {
-        response: completion.data.choices[0].text,
-        total_tokens: completion.data.usage.total_tokens
-      };
+      if (chatCompletion.includes(params.optionSelected)) {
+        const completion = await openai.createChatCompletion({
+          model: params.optionSelected,
+          messages: [{role: "user", content: generatePromptBoldPromise(params)}],
+        });
+        return {
+          response: completion.data.choices[0].message.content,
+          total_tokens: completion.data.usage.total_tokens
+        };
+      } else {
+        var question = generatePromptBoldPromise(params);
+        console.log("<<<>>>>>>>>>>>>>>>>>>")
+        console.log(question)
+        console.log("<<<>>>>>>>>>>>>>>>>>>")
+        const completion = await openai.createCompletion({
+          model: params.optionSelected,
+          prompt: question,
+          temperature: params.temperature,
+          max_tokens: 2048,
+          top_p: params.topP,
+          frequency_penalty: params.frecuencyPenalty,
+          presence_penalty: params.presencePenalty,
+          suffix: ""
+        });
+        console.log('************************************');
+        console.log(completion.data);
+        return {
+          response: completion.data.choices[0].text,
+          total_tokens: completion.data.usage.total_tokens
+        };
+      }
     } catch(error) {
       if (error.response) {
         console.error(error.response.status, error.response.data);
@@ -334,31 +361,40 @@ const generatePrompt = (description) => {
         return;
     }
     
-    // if (!params.questions) {
-    //     alert("Please enter a valid description")
-    //     return;
-    // }
-  
     try {
-      const completion = await openai.createCompletion({
-        model: params.optionSelected, //"text-davinci-002"
-        // prompt: generatePromptWithSimpleQuestion(params),
-        prompt: `${question}
-    
-    
-        `,
-        temperature: params.temperature,
-        max_tokens: params.maxLength,
-        top_p: params.topP,
-        frequency_penalty: params.frecuencyPenalty,
-        presence_penalty: params.presencePenalty,
-      });
-      console.log('************************************');
-      console.log(completion.data);
-      return {
-        response: completion.data.choices[0].text,
-        total_tokens: completion.data.usage.total_tokens
-      };
+      if (chatCompletion.includes(params.optionSelected)) {
+        const completion = await openai.createChatCompletion({
+          model: params.optionSelected,
+          messages: [{role: "user", content: `${question}
+      
+      
+          `,}],
+        });
+        return {
+          response: completion.data.choices[0].message.content,
+          total_tokens: completion.data.usage.total_tokens
+        };
+      } else {
+        const completion = await openai.createCompletion({
+          model: params.optionSelected, //"text-davinci-002"
+          // prompt: generatePromptWithSimpleQuestion(params),
+          prompt: `${question}
+      
+      
+          `,
+          temperature: params.temperature,
+          max_tokens: params.maxLength,
+          top_p: params.topP,
+          frequency_penalty: params.frecuencyPenalty,
+          presence_penalty: params.presencePenalty,
+        });
+        console.log('************************************');
+        console.log(completion.data);
+        return {
+          response: completion.data.choices[0].text,
+          total_tokens: completion.data.usage.total_tokens
+        };
+      }
     } catch(error) {
       if (error.response) {
         console.error(error.response.status, error.response.data);
