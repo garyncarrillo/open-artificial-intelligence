@@ -7,6 +7,7 @@ import * as styles from './Select.styles'
 import { BootstrapInput } from '../BootstrapInput';
 import CheckBox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
+import { LightTooltip } from '../LightTooltip'
 
 export const Select = ({label, value, handleChangeData, options=[], nameField, ...rest}) => {
   const getRenderValue = (selected) =>{
@@ -21,7 +22,7 @@ export const Select = ({label, value, handleChangeData, options=[], nameField, .
   return (
       <FormControl variant="standard" css={styles.wrapper} >
         <InputLabel shrink id="demo-simple-select-label">{label}</InputLabel>
-        <Tooltip title={rest.textToolTip} placement={rest.positionToolTip}>
+        <LightTooltip title={rest.textToolTip} placement={rest.positionToolTip}>
           <MuiSelect
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -42,7 +43,7 @@ export const Select = ({label, value, handleChangeData, options=[], nameField, .
                   )
               }
           </MuiSelect>
-        </Tooltip>
+        </LightTooltip>
       </FormControl>
   );
 }

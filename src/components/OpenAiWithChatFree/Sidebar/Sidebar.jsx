@@ -27,7 +27,7 @@ export const Sidebar = ({
         handleChangeData={handleChangeData}
         nameField={"optionSelected"}
 				value={data.optionSelected}
-        textToolTip={"The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code. Learn more."}
+        textToolTip={"The model which will generate the completion. Some models are suitable for natural language tasks, others specialize in code."}
         positionToolTip={"top"}
       />
       {/* <Select
