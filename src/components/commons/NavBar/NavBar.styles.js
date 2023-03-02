@@ -9,7 +9,6 @@ export const nav = css`
     padding: 7px 12px;
     align-items: center;
     justify-content: center;
-    position: fixed;
     top: 0;
     right: 0;
     margin: 20px;
