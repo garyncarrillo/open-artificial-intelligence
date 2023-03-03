@@ -104,17 +104,6 @@ export const Sidebar = ({
         textToolTip={"How much to penalize new tokens based on wheter they appear in the text so far. Increases the model's likelihood to talk about new topics."}
         positionToolTip={"left"}
       />
-      {/* <p>Tokens available: {totalToken}</p> */}
-
-      <div className="containerMobile">
-        <Button
-          className="sendButton showOnMobile"
-          disabled={loading}
-          handleClick={handlerSend}
-        >
-          {loading ? <CircularProgress size={24} /> : "Send Request"}
-        </Button>
-      </div>
     </div>
   );
 };

@@ -168,15 +168,12 @@ const OpenAiWithChatFree = () => {
       <Header />
       <div className="container container-request" css={styles.container}>
         <div className="left-side" css={styles.wrapper}>
-          <div contentEditable={true} rows={20} css={css`width: 100%; padding: 10px; height: 520px;
-          overflow-y: auto;
-          border: 1px solid gray;
-          border-radius: 3px;`} ref={textAreaRef}></div>
+          <div contentEditable={true} rows={20} className='input-chatfree' ref={textAreaRef}></div>
 
           <Button
             disabled={loading}
             handleClick={handlerChatFree}
-            className="sendButton hideOnMobile"
+            className="sendButton"
           />
         </div>
         <Sidebar

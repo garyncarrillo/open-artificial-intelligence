@@ -39,25 +39,35 @@ export const container = css`
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 32px;
+  .input-chatfree {
+    width: 100%;
+    padding: 10px;
+    height: 520px;
+    overflow-y: auto;
+    border: 1px solid gray;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
 
-  &.container-response{
-    .MuiFormControl-root{
+  &.container-response {
+    .MuiFormControl-root {
       width: 100%;
     }
-    .result-label{
-      font-family: 'Open Sans';
+    .result-label {
+      font-family: "Open Sans";
       font-style: normal;
       font-weight: 600;
       font-size: 12px;
       line-height: 16px;
-      color: #1A1A1A;
+      color: #1a1a1a;
       margin-bottom: 5px;
     }
   }
- 
+
   @media (max-width: 600px) {
-    flex-direction: column;
-    &.container-request, &.container-response{
+    flex-direction: column-reverse;
+    &.container-request,
+    &.container-response {
       width: 95%;
     }
     .hideOnMobile {
@@ -70,7 +80,8 @@ export const container = css`
     }
   }
   @media (max-width: 1024px) {
-    &.container-request, &.container-response{
+    &.container-request,
+    &.container-response {
       width: 95%;
     }
   }
@@ -81,16 +92,15 @@ export const dynamicInput = css`
   margin-bottom: 15px;
 `;
 
-
 export const body = css`
-  background: #E7F1DA;
+  background: #e7f1da;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
-  .link-goto{
-    a{
+  .link-goto {
+    a {
       text-decoration: none;
       font-weight: 500;
       color: #000;
@@ -103,9 +113,9 @@ export const body = css`
     top: 0;
     right: 0;
     margin: 20px;
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       position: relative;
       margin-bottom: 10px;
     }
   }
-`
+`;
