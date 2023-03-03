@@ -6,9 +6,9 @@ import * as styles from './NavBar.styles'
 export const NavBar = () => {
     return (
         <div css={styles.nav}>
-            <NavLink to={'/'} activeClassName='active'>Laura</NavLink>
-            <NavLink to={'/bold-promise'} activeClassName='active'>Laura Bold Promise</NavLink>
-            <NavLink to={'/chat-free'} activeClassName='active'>Chat Free</NavLink>
+            <NavLink to={'/'} activeClassName='active'>Guided</NavLink>
+            <NavLink to={'/blueprint'} activeClassName='active'>Blueprint</NavLink>
+            <NavLink to={'/free-style'} activeClassName='active'>Free style</NavLink>
         </div>
     );
 }

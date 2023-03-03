@@ -6,7 +6,7 @@ export const Header = () => {
     return (
         <header css={styles.wrapper}>
             <img src={Logo} alt={"Logo"} />
-            <span className='subheadline'>(Chat Free)</span>
+            <span className='subheadline'>(Free style)</span>
             <span className='title'>Hi! I’m Laura ☺️ I’m here to help. Give me a try...</span>
         </header>
     );

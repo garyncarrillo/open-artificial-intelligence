@@ -18,7 +18,7 @@ function App() {
       element: <OpenAi/>,      
     },
     {
-      path: "/bold-promise",
+      path: "/blueprint",
       element: <OpenAiWithBoldPromise/>,      
     },
     {
@@ -30,7 +30,7 @@ function App() {
       element: <Training/>,
     },
     {
-      path: "/chat-free",
+      path: "/free-style",
       element: <OpenAiWithChatFree/>,
     },
 
