@@ -259,7 +259,7 @@ const generatePrompt = (description) => {
     var what = RemovePoint(params.questionWhat.toLowerCase());
     var how = RemovePoint(params.questionHow.toLowerCase());
       
-    var question = `Build a phrase like these ones: 
+    var question = `Build three phrase like these ones: 
     "How to find amazin property deals and grow your wealth without a lot of starting capital, even if you've struggled to get funding in the past."
     "How to have clear and open communication with your teenager without the drama even if there's currently a lot of friction and Rebellious Behavior."
     "How to be a confident leader and increase productivity without a lot of "ra ra ra!", even if you're struggling with massive staff turnover and low morale right now."

@@ -166,7 +166,7 @@ const OpenAiWithBoldPromise = () => {
     var biggestDesireAnswer = null;
     var biggestPainAnswer = null;
     const { response, total_tokens } = await chatOpenAiBoldPromiseV2(data);
-    setAnswer(response.replace(/(\r\n|\n|\r)/gm, " "));
+    setAnswer(response.replace(/(\r    \"|    \"|\r)/gm, '"'));
     setLoading(false);
   };
 

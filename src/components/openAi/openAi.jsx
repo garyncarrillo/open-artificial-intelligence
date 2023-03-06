@@ -118,9 +118,9 @@ const OpenAi = () => {
   ];
 
   const handlerSend = async () => {
-    if (totalToken <= 0) {
-      alert("You don't have enough tokens");
-    }
+    // if (totalToken <= 0) {
+    //   alert("You don't have enough tokens");
+    // }
     var newQuestion = `${questionSelected} ${question}`;
     setLoading(true);
     const { response, total_tokens } = await chatOpenAI(data);
