@@ -30,7 +30,7 @@ function App() {
       element: <Training/>,
     },
     {
-      path: "/free-style",
+      path: "/freestyle",
       element: <OpenAiWithChatFree/>,
     },
 

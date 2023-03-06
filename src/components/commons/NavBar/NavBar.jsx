@@ -8,7 +8,7 @@ export const NavBar = () => {
         <div css={styles.nav}>
             <NavLink to={'/'} activeClassName='active'>Guided</NavLink>
             <NavLink to={'/blueprint'} activeClassName='active'>Blueprint</NavLink>
-            <NavLink to={'/free-style'} activeClassName='active'>Free style</NavLink>
+            <NavLink to={'/freestyle'} activeClassName='active'>Freestyle</NavLink>
         </div>
     );
 }
