@@ -9,7 +9,7 @@ import CheckBox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import { LightTooltip } from '../LightTooltip'
 
-export const Select = ({label, value, handleChangeData, options=[], nameField, ...rest}) => {
+export const Select = ({label, value, handleChangeData, options=[], nameField, textToolTip, positionToolTip, ...rest}) => {
   const getRenderValue = (selected) =>{
     if(typeof (selected) === 'string' ){
       return selected
@@ -22,7 +22,7 @@ export const Select = ({label, value, handleChangeData, options=[], nameField, .
   return (
       <FormControl variant="standard" css={styles.wrapper} >
         <InputLabel shrink id="demo-simple-select-label">{label}</InputLabel>
-        <LightTooltip title={rest.textToolTip} placement={rest.positionToolTip}>
+        <LightTooltip title={textToolTip} placement={positionToolTip}>
           <MuiSelect
             labelId="demo-simple-select-label"
             id="demo-simple-select"

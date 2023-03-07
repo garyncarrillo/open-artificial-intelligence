@@ -23,6 +23,7 @@ import { Header } from "./Header";
 import Footer from "./Footer/Footer";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
+import { EditorToolbar } from "../EditorToolbar";
 
 const OpenAiWithChatFree = () => {
   const [answer, setAnswer] = useState("");
@@ -160,14 +161,22 @@ const OpenAiWithChatFree = () => {
   const handleChange = (event) => {
     setQuestionSelected(event.target.value);
   };
+let showToolbarOptions = false;
+  const params = new URLSearchParams(window.location.search)
+  if(params && params.get('toolbar') === "true"){
+    showToolbarOptions= true;
+  }
 
   return (
     <div className="wrapperForm-im-laura" css={styles.body}>
     <NavBar />
     {/* <Link to={'/'} className='link-goto'>Go to Laura</Link> */}
       <Header />
-      <div className="container container-request" css={styles.container}>
-        <div className="left-side" css={styles.wrapper}>
+      <div className="container container-request " css={styles.container}>
+        <div className="left-side content-editables-holder" css={styles.wrapper}>
+        {showToolbarOptions && 
+          <EditorToolbar />
+        }
           <div contentEditable={true} rows={20} className='input-chatfree' ref={textAreaRef}></div>
 
           <Button
