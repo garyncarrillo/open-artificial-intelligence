@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect,  useState } from "react";
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Components
 import { TopBarContent, ButtonTopBar, Trigger } from "./EditorToolbar.styles";
 // import ColorPicker from "./ColorPicker";
-import { LightTooltip as Tooltip, Paragraph } from "../commons";
+import { LightTooltip as Tooltip } from "../commons";
 
 // Assets
 // import imgHeadingTopBar from "../../assets/icon-editor-toolbar-heading.svg";
@@ -17,7 +16,7 @@ import imgOrderTopBar from "../../assets/icon-editor-toolbar-list.svg";
 import imgAlignTextTopBar from "../../assets/icon-editor-toolbar-align-text.svg";
 
 // Utils
-// import { getSanitizedHtml, hexToRgb } from "../../../app/utils";
+
 import {
   activateByTagNames,
   activateByAlignment,
@@ -29,7 +28,6 @@ import {
   arrayConst,
   itemSize,
   itemFamily,
-  headings,
   initialColor,
   initialHighlight,
   initialFontSize,
@@ -38,23 +36,14 @@ import {
   isSomethingSelected,
 } from "../../utils/editorToolBar.functions";
 
-// Styles
-// import clsx from "clsx";
-// import ColorPicker from "../../BuilderQuestionContainer/RightBar/ColorPicker";
 
-// const FontAwesomeIcon = ({icon})=>{
-//     return (<span>{icon[1]}</span>)
-// }
 
 export function EditorToolbar(props) {
-  const selectionRef = useRef(null);
-  const colorActionRef = useRef(null);
   let color = null;
   let highlight = null;
   let fontSize = null;
   let fontFamily = null;
   let fontWeight = null;
-  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [customColors, setCustomColors] = useState([]);
 
   useEffect(() => {
@@ -152,6 +141,7 @@ export function EditorToolbar(props) {
     fontSize = initialFontSize;
     fontFamily = initialFontFamily;
     fontWeight = initialFontWeight;
+    document.querySelector(".order-list-trigger").classList.remove("active");
     document.querySelector(".alignment-trigger").classList.remove("active");
     document.querySelector(".font-size-text").textContent = fontSize;
     document.querySelector(".font-family-text").textContent = fontFamily;
@@ -181,55 +171,6 @@ export function EditorToolbar(props) {
   function dispatchSelectionChange() {
     const evt = new Event("selectionchange");
     document.dispatchEvent(evt);
-  }
-
-  function saveSelection() {
-    const selection = window.getSelection();
-    return selection.rangeCount === 0 ? null : selection.getRangeAt(0);
-  }
-
-  function restoreSelection() {
-    const sel = window.getSelection();
-
-    sel.removeAllRanges();
-    sel.addRange(selectionRef.current);
-  }
-
-  function togglePicker() {
-    setIsColorPickerOpen((prev) => !prev);
-  }
-
-  function convertHex3ToHex6(color) {
-    let newColor;
-
-    if (color.length === 4) {
-      color = color.slice(1); // Remove #
-      const colorSplitted = color.split("");
-      const hex6 = colorSplitted.map((val) => `${val}${val}`).join("");
-
-      newColor = `#${hex6}`;
-    } else {
-      newColor = color;
-    }
-
-    return newColor;
-  }
-
-  function changeColor(color) {
-    const hex6 = convertHex3ToHex6(color);
-
-    restoreSelection();
-    document.execCommand(colorActionRef.current, false, hex6);
-
-    if (!arrayConst.includes(hex6) && !customColors.includes(hex6)) {
-      const newCustomColors = [...customColors, hex6];
-
-      setCustomColors(newCustomColors);
-    }
-
-    colorActionRef.current = null;
-    dispatchSelectionChange();
-    togglePicker();
   }
 
   function getColor() {
@@ -275,10 +216,6 @@ export function EditorToolbar(props) {
   return (
     <TopBarContent>
       <div className="bottomContent">
-      
-
-        
-
         <Trigger>
           <ButtonTopBar
             className="color-preview-container"
@@ -307,19 +244,6 @@ export function EditorToolbar(props) {
               })}
             </div>
 
-            {/* <div
-              className="custom-color-container"
-              onMouseDown={(e) => {
-                e.preventDefault();
-                colorActionRef.current = "foreColor";
-                selectionRef.current = saveSelection();
-                togglePicker();
-              }}
-            >
-              <Paragraph tag="span" paragraphType="menuTitle">
-                Pick Custom Color
-              </Paragraph> 
-            </div> */}
 
             <div className="custom-colors colors">
               {customColors.map((val, index) => {
@@ -361,20 +285,6 @@ export function EditorToolbar(props) {
                 });
               })}
             </div>
-
-            {/* <div
-              className="custom-color-container"
-              onMouseDown={(e) => {
-                e.preventDefault();
-                colorActionRef.current = "backColor";
-                selectionRef.current = saveSelection();
-                togglePicker();
-              }}
-            >
-              <Paragraph tag="span" paragraphType="menuTitle">
-                Pick Custom Color
-              </Paragraph>
-            </div> */}
 
             <div className="custom-colors colors">
               {customColors.map((val, index) => {
@@ -469,7 +379,7 @@ export function EditorToolbar(props) {
           tagName="strike"
         />
 
-<Trigger className="order-list-trigger">
+        <Trigger className="order-list-trigger">
           <ButtonTopBar>
             <Tooltip title={"Order List"} placement="top">
               <img src={imgOrderTopBar} alt={imgOrderTopBar} />
@@ -481,7 +391,7 @@ export function EditorToolbar(props) {
               cmd="insertOrderedList"
               disp={dispatchSelectionChange}
               icon="list-ol"
-              action="Order List"
+              // action="Order List"
               className="btn"
               tagName="ol"
             />
@@ -489,7 +399,7 @@ export function EditorToolbar(props) {
               cmd="insertUnorderedList"
               disp={dispatchSelectionChange}
               icon="list"
-              action="Unorder List"
+              // action="Unorder List"
               className="btn"
               tagName="ul"
             />
@@ -567,11 +477,7 @@ export function EditorToolbar(props) {
         </Trigger>
       </div>
 
-      {/* {isColorPickerOpen &&
-        createPortal(
-          <ColorPicker close={togglePicker} confirm={changeColor} />,
-          document.querySelector("#pickerContainer"),
-        )} */}
+  
     </TopBarContent>
   );
 }
@@ -594,9 +500,7 @@ function EditButton(props) {
     >
       <Tooltip title={props.action} placement="top">
         <span>
-          <FontAwesomeIcon
-            icon={["far", `${props.icon}`]}
-          />
+          <FontAwesomeIcon icon={["far", `${props.icon}`]} />
         </span>
       </Tooltip>
     </ButtonTopBar>

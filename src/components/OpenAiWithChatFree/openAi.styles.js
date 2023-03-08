@@ -47,6 +47,9 @@ export const container = css`
     border: 1px solid gray;
     border-radius: 3px;
     box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   &.container-response {
