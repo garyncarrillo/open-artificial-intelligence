@@ -133,13 +133,12 @@ const OpenAiWithChatFree = () => {
       // handleChangeData('questions', textAreaRef.current.value);
       question = textAreaRef.current.innerText;
       const { response, total_tokens } = await chatOpenAIFree(data, question);
-      debugger;
       const questionItem = {
         q: textAreaRef.current.value,
-        a: response.trim(),
+        a: response.split("\n").join("<br/>"),
         tokens: total_tokens
       }
-      setQuestionData([textAreaRef.current.innerText, response.trim()])
+      setQuestionData([textAreaRef.current.innerText, ...response.split("\n")])
       textAreaRef.current.innerHTML = `${question}</br></br><span style="background-color: #d2f4d3">${questionItem.a}</span></br></br></br>`
     }else{
       const lines = textAreaRef.current.innerText.split('\n');
@@ -148,8 +147,8 @@ const OpenAiWithChatFree = () => {
       question = newLines.join('\n')
       const { response } = await chatOpenAIFree(data, question);
       // textAreaRef.current.value = `${textAreaRef.current.value}\n${response.trim()}`
-      textAreaRef.current.innerHTML = `${textAreaRef.current.innerHTML}</br></br><span style="background-color: #d2f4d3">${response.trim()}</span></br></br></br>`
-      setQuestionData([...questionData, ...question.split("\n"), response.trim()])
+      textAreaRef.current.innerHTML = `${textAreaRef.current.innerHTML}</br></br><span style="background-color: #d2f4d3">${response.split("\n").join("<br/>")}</span></br></br></br>`
+      setQuestionData([...questionData, ...question.split("\n"), ...response.split("\n")])
     }
     
     // const { response, total_tokens } = await chatOpenAIFree(data);
