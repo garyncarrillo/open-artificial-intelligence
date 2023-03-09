@@ -161,10 +161,6 @@ const OpenAiWithChatFree = () => {
     setQuestionSelected(event.target.value);
   };
 let showToolbarOptions = false;
-  const params = new URLSearchParams(window.location.search)
-  if(params && params.get('toolbar') === "true"){
-    showToolbarOptions= true;
-  }
 
   return (
     <div className="wrapperForm-im-laura" css={styles.body}>
@@ -173,9 +169,7 @@ let showToolbarOptions = false;
       <Header />
       <div className="container container-request " css={styles.container}>
         <div className="left-side content-editables-holder" css={styles.wrapper}>
-        {showToolbarOptions && 
           <EditorToolbar />
-        }
           <div contentEditable={true} rows={20} className='input-chatfree' ref={textAreaRef}></div>
 
           <Button
