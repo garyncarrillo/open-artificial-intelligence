@@ -171,8 +171,8 @@ const OpenAiWithBoldPromise = () => {
     response = response.replaceAll("without", "<b>without</b>")
     response = response.replaceAll("Without", "<b>Without</b>")
     
-    response = response.replaceAll("Even If You", "<b>Even If You</b>")
     response = response.replaceAll("Even If", "<b>Even If</b>")
+    response = response.replaceAll("Even if", "<b>Even if</b>")
     response = response.replaceAll("even if", "<b>even if</b>")
     response = response.replaceAll("Even if", "<b>Even if</b>")
     
