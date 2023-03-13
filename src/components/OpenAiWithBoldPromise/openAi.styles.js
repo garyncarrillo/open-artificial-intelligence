@@ -74,6 +74,19 @@ export const container = css`
       width: 95%;
     }
   }
+
+  .input-chatfree {
+    width: 100%;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+    border: 1px solid gray;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 `;
 
 export const dynamicInput = css`

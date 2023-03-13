@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../../App.css";
 import Box from "@mui/material/Box";
 // import Button from '@mui/material/Button';
@@ -44,6 +44,7 @@ const OpenAiWithBoldPromise = () => {
     audiencesSelected: "Neutral",
     humanDesire: []
   });
+  const textAreaRef = useRef();
   const [engineOptions, setEngineOption] = useState([]);
   const [totalToken, setTotalToken] = useState(500);
   const voiceOptions = [
@@ -165,8 +166,17 @@ const OpenAiWithBoldPromise = () => {
     setLoading(true);
     var biggestDesireAnswer = null;
     var biggestPainAnswer = null;
-    const { response, total_tokens } = await chatOpenAiBoldPromiseV2(data);
-    setAnswer(response.replace(/(\r    \"|    \"|\r)/gm, '"'));
+    var { response, total_tokens } = await chatOpenAiBoldPromiseV2(data);
+    response = response.replaceAll("How to", "<b>How To</b>")
+    response = response.replaceAll("without", "<b>without</b>")
+    response = response.replaceAll("Without", "<b>Without</b>")
+    
+    response = response.replaceAll("Even If You", "<b>Even If You</b>")
+    response = response.replaceAll("Even If", "<b>Even If</b>")
+    response = response.replaceAll("even if", "<b>even if</b>")
+    response = response.replaceAll("Even if", "<b>Even if</b>")
+    
+    textAreaRef.current.innerHTML = `${response.split("\n").join("<br/>")}`
     setLoading(false);
   };
 
@@ -243,14 +253,15 @@ const OpenAiWithBoldPromise = () => {
       <div className="container-response" css={styles.container}>
         <FormControl variant="standard">
         <span className="result-label">Result</span>
-          <TextField
+          {/* <TextField
             className="textArea"
             id="outlined-multiline-static"
             multiline
             rows={4}
             defaultValue={answer}
             css={styles.inputs("100%", "250px")}
-          />
+          /> */}
+          <div contentEditable={true} rows={20} className='input-chatfree' ref={textAreaRef}></div>
         </FormControl>
       </div>
      <Footer />
